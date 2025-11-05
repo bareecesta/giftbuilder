@@ -3,18 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Coffee Christmas Gift Bundles — Groundwork</title>
-  <meta name="description" content="Coffee gift bundles for every coffee lover. Choose your budget and we’ll suggest the perfect gift — from beans to brewing gear, wrapped for Christmas." />
-  <link rel="canonical" href="https://groundworkcoffee.co.uk/christmas-bundles.html" />
+
+  <title>Groundwork Gifts — Coffee Christmas Bundles & Builder</title>
+  <meta name="description" content="Groundwork Gifts: curated coffee Christmas bundles by Reece Jack — Owner of Tasse and Founder of Groundwork. Choose your budget and we’ll build the perfect coffee gift." />
+  <link rel="canonical" href="https://groundworkgifts.example/index.html" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Groundwork Coffee" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Groundwork Gifts — Coffee Christmas Bundles & Builder" />
+  <meta property="og:description" content="Curated coffee Christmas bundles by Reece Jack, Owner of Tasse and Founder of Groundwork." />
+  <meta property="og:image" content="assets/groundwork-logo-og.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Groundwork Gifts — Coffee Christmas Bundles & Builder" />
+  <meta name="twitter:description" content="Curated coffee Christmas bundles by Reece Jack, Owner of Tasse and Founder of Groundwork." />
+  <meta name="twitter:image" content="assets/groundwork-logo-og.png" />
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/groundwork logo.png" />
+
+  <!-- Fonts + Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { coffee: '#5a2b10', cream: '#e8dfcc', accent: '#f97316' },
+          fontFamily: { figtree: ['Figtree', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-white text-black font-figtree">
-  <main class="max-w-4xl mx-auto px-6 py-16">
-    <h1 class="text-4xl font-bold text-center text-[#5a2b10] mb-8">Reece From Tasse also known as Bareecesta</h1>
 
+<body class="bg-white text-black font-figtree">
+  <main class="max-w-5xl mx-auto px-6 py-20 text-center">
+    <!-- Header -->
+    <img src="assets/groundwork logo.png" alt="Groundwork Gifts logo" class="mx-auto h-20 w-20 mb-6" />
+    <h1 class="text-4xl font-bold text-coffee mb-4">Groundwork Gifts</h1>
+    <p class="text-neutral-700 max-w-2xl mx-auto">
+      Curated coffee Christmas bundles for every budget — created by <strong>Reece Jack</strong>,
+      Owner of <a href="https://tassecoffeeco.com" class="text-coffee font-semibold hover:underline" target="_blank" rel="noopener">Tasse Coffee Co.</a>
+      and Founder of <strong>Groundwork Coffee</strong>.
+    </p>
+
+    <!-- Hero Image -->
+    <div class="mt-10 relative mx-auto max-w-3xl overflow-hidden rounded-3xl shadow-lg">
+      <img src="assets/coffee-bg.jpg" alt="Coffee cups and beans" class="w-full h-auto object-cover" />
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-12">
+      <a href="builder.html"
+         class="inline-block rounded-full bg-coffee text-white px-8 py-4 font-semibold text-lg hover:bg-[#4a1f0b] transition transform hover:-translate-y-0.5">
+        Start Your Gift Builder
+      </a>
+    </div>
+
+    <!-- Optional: Secondary section -->
+    <section class="mt-16 max-w-3xl mx-auto text-neutral-700">
+      <h2 class="text-2xl font-semibold text-coffee mb-4">A Coffee Gift They’ll Actually Use</h2>
+      <p>
+        Each bundle is hand-selected with high-quality brewing gear and specialty beans.
+        From simple starter sets to full barista-level kits, every gift supports independent coffee and
+        local craft roasting. Free collection or UK delivery available from <strong>15 December</strong>.
+      </p>
+    </section>
+  </main>
+
+  <footer class="mt-20 border-t border-neutral-200 py-6 text-center text-sm text-neutral-500">
+    &copy; <span id="year"></span> Groundwork Coffee | Made in Scotland
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
