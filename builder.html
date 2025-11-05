@@ -4,623 +4,205 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Coffee Christmas Gift Builder — Groundwork Gifts</title>
-  <meta name="description" content="Pick a budget and we’ll recommend the perfect coffee gift — from beans to brewing gear. Curated by Groundwork. UK delivery or free collection from 15 December." />
-  <meta name="keywords" content="coffee gift UK, coffee christmas gift set, coffee gift bundle, barista gift, christmas coffee present, coffee gifts Scotland, groundwork coffee gifts, tasse coffee christmas" />
-  <meta name="robots" content="index, follow" />
-  <meta name="author" content="Groundwork Coffee" />
+  <!-- Primary SEO -->
+  <title>Coffee Christmas Gift Builder — Curated Coffee Gifts by Reece at Tasse & Groundwork</title>
+  <meta name="description" content="Build a barista-approved coffee Christmas gift in minutes. Pick your budget, answer a few questions, and let Reece from Tasse curate the perfect bundle. Free collection from 15 Dec or UK delivery." />
+  <link rel="canonical" href="https://bareecesta.co.uk/builder.html" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="author" content="Reece Jack — Tasse & Groundwork" />
   <meta name="theme-color" content="#5a2b10" />
-  <link rel="canonical" href="https://groundworkgifts.example/builder.html" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Coffee Christmas Gift Builder — Groundwork Gifts" />
-  <meta property="og:description" content="Choose your budget and get a barista-approved coffee gift, curated for how they brew." />
-  <meta property="og:image" content="assets/groundwork-logo-og.png" />
+  <meta property="og:title" content="Coffee Christmas Gift Builder — Barista-Approved Gifts" />
+  <meta property="og:description" content="Choose your budget, answer a couple of questions, and get a tailored coffee gift curated by Reece from Tasse Coffee and Groundwork." />
+  <meta property="og:url" content="https://bareecesta.co.uk/builder.html" />
+  <meta property="og:image" content="https://bareecesta.co.uk/assets/og-gift-builder.jpg" />
 
-  <!-- Twitter -->
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Coffee Christmas Gift Builder — Groundwork Gifts" />
-  <meta name="twitter:description" content="Choose your budget and get a barista-approved coffee gift, curated for how they brew." />
-  <meta name="twitter:image" content="assets/groundwork-logo-og.png" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/groundwork logo.png" />
+  <meta name="twitter:title" content="Coffee Christmas Gift Builder — Barista-Approved Gifts" />
+  <meta name="twitter:description" content="Barista-curated coffee bundles with free collection from 15 December or £5 UK delivery." />
+  <meta name="twitter:image" content="https://bareecesta.co.uk/assets/og-gift-builder.jpg" />
 
   <!-- Fonts + Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { coffee: '#5a2b10', cream: '#e8dfcc', accent: '#f97316' },
-          fontFamily: { figtree: ['Figtree', 'system-ui', 'sans-serif'] },
-          boxShadow: { hover: '0 12px 24px -12px rgba(90,43,16,.25)' },
-        },
-      },
-    };
-  </script>
-  <style>
-    html, body { font-family: 'Figtree', system-ui, sans-serif; }
-    button, a { -webkit-tap-highlight-color: rgba(0,0,0,0.08); }
-  </style>
 
-  <!-- JSON-LD Product schema (update URL/image when live) -->
+  <!-- JSON-LD: WebSite -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org/",
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Bareecesta Coffee Gifts",
+    "url": "https://bareecesta.co.uk/",
+    "inLanguage": "en-GB",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://bareecesta.co.uk/search?q={query}",
+      "query-input": "required name=query"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Bareecesta",
+    "url": "https://bareecesta.co.uk/",
+    "logo": "https://bareecesta.co.uk/assets/groundwork-logo-og.png",
+    "sameAs": [
+      "https://www.instagram.com/tassecoffeeco",
+      "https://www.instagram.com/groundwork_coffee"
+    ],
+    "founder": {
+      "@type": "Person",
+      "name": "Reece Jack",
+      "jobTitle": "Owner, Tasse Coffee & Founder, Groundwork",
+      "url": "https://tassecoffeeco.com"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: Product (AggregateOffer across budgets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "Product",
-    "name": "Coffee Christmas Gift Builder",
-    "brand": "Groundwork Coffee",
-    "description": "Choose your budget and we’ll create the perfect coffee gift bundle — from beans to brewing gear, curated by barista Reece from Tasse Coffee.",
-    "image": "https://groundworkgifts.example/assets/groundwork-logo-og.png",
+    "name": "Coffee Christmas Gift Bundles",
+    "brand": "Bareecesta Coffee / Tasse",
+    "description": "Curated coffee gifts by professional barista Reece Jack. Choose a budget and receive premium beans, brewers and pro tools to suit.",
+    "image": "https://bareecesta.co.uk/assets/og-gift-builder.jpg",
+    "url": "https://bareecesta.co.uk/builder.html",
+    "sku": "BC-GIFT-BUNDLES-2025",
+    "category": "https://schema.org/GiftCard",
     "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "GBP",
       "lowPrice": "15",
       "highPrice": "500",
-      "availability": "https://schema.org/InStock",
-      "url": "https://groundworkgifts.example/builder.html"
+      "offerCount": "7",
+      "availability": "https://schema.org/InStock"
     },
-    "areaServed": "GB"
+    "areaServed": "GB",
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "GB" },
+      "shippingRate": { "@type": "MonetaryAmount", "currency": "GBP", "value": "5.00" },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "d" }
+      }
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "How does the coffee gift builder work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pick your budget, answer a couple of quick questions about their setup (espresso, V60, grinder, kettle), and we’ll recommend a tailored bundle. You can checkout securely via Stripe, collect free from 15 December, or choose £5 UK delivery."
+      }
+    },{
+      "@type": "Question",
+      "name": "When can I collect or get delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Free collection is available from Monday 15 December. UK delivery starts the same week and we’ll contact you to arrange a suitable time."
+      }
+    },{
+      "@type": "Question",
+      "name": "Can I customise the bundle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the builder to select a budget and we’ll tailor the contents. You can also email Reece directly for a custom request at bareecesta@gmail.com."
+      }
+    }]
   }
   </script>
 </head>
-<body class="bg-white text-black">
 
-  <!-- Sticky announcement bar (dismissible) -->
-  <div id="gw-announce" class="sticky top-0 z-[60] w-full bg-[#5a2b10] text-white">
-    <div class="mx-auto max-w-6xl px-4 py-3 text-center">
-      <p class="text-sm md:text-base leading-snug">
-        <strong>Christmas fulfilment:</strong> Free collection starts <strong>Monday 15 December</strong>.
-        UK delivery begins the same week — we’ll contact you to arrange a suitable time.
-      </p>
-    </div>
-    <button
-      id="gw-announce-close"
-      class="absolute right-2 top-2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/40"
-      aria-label="Dismiss announcement"
-      type="button"
-    >✕</button>
+<body class="bg-white text-black font-figtree">
+  <!-- Sticky Announcement -->
+  <div class="bg-[#5a2b10] text-white text-center py-2 text-sm font-medium sticky top-0 z-50">
+    🎄 Free collection starts Monday 15 December. UK delivery available (£5) that same week — we’ll contact you to arrange a time.
   </div>
 
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 md:py-14">
-    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-coffee mb-6 sm:mb-8">Christmas Coffee Gift Builder</h1>
+  <main class="max-w-4xl mx-auto px-6 py-12 sm:py-16">
+    <h1 class="text-3xl sm:text-4xl font-bold text-center text-[#5a2b10] mb-8">Coffee Christmas Gift Builder</h1>
 
-    <!-- Step progress with numbered circles -->
-    <div id="stepper" class="mx-auto mb-6 sm:mb-8 flex items-center justify-center gap-5 sm:gap-6">
-      <div class="flex items-center gap-2">
-        <span id="dot1" class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-coffee text-coffee font-semibold">1</span>
-        <span class="hidden sm:inline text-sm font-medium text-coffee">Budget</span>
-      </div>
-      <div class="h-[2px] w-8 sm:w-10 bg-coffee/20"></div>
-      <div class="flex items-center gap-2">
-        <span id="dot2" class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-coffee/40 text-coffee/40 font-semibold">2</span>
-        <span class="hidden sm:inline text-sm font-medium text-coffee/60">Questions</span>
-      </div>
-      <div class="h-[2px] w-8 sm:w-10 bg-coffee/20"></div>
-      <div class="flex items-center gap-2">
-        <span id="dot3" class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-coffee/40 text-coffee/40 font-semibold">3</span>
-        <span class="hidden sm:inline text-sm font-medium text-coffee/60">Checkout</span>
-      </div>
-    </div>
-
-    <!-- Reassurance / intro -->
-    <section class="rounded-3xl border border-neutral-200 bg-cream/50 p-4 sm:p-5 md:p-6 mb-5 sm:mb-6">
-      <p class="text-neutral-800 text-sm sm:text-base">
-        Hi, I’m <strong>Reece</strong> from <a href="https://tassecoffeeco.com" target="_blank" rel="noopener" class="font-semibold text-coffee underline underline-offset-2">Tasse</a> and founder of <strong>Groundwork</strong>.
-        I’m here to make Christmas shopping for your coffee-loving partner, friend or family member easy:
-        <strong>pick a budget, answer a couple of quick questions, and I’ll handle the rest.</strong>
-      </p>
-      <p class="text-neutral-700 text-sm sm:text-base mt-3">
-        I’ve teamed up with my go-to brew gear brands — <strong>MHW-3 Bomber</strong> and <strong>Orea</strong> — to build bundles that
-        actually get used. Collection is free from <strong>15 December</strong> or UK delivery is <strong>£5</strong>.
-      </p>
+    <section class="text-center mb-8">
+      <p class="text-neutral-700 mb-4">Reece from <a href="https://tassecoffeeco.com" target="_blank" class="underline text-[#5a2b10] font-semibold">Tasse</a> is here to make Christmas shopping for your coffee-loving partner, friend or family member easier.</p>
+      <p class="text-neutral-700">All you do is pick the amount, answer a couple of questions, and I’ll handle the rest — featuring premium gear from <strong>MHW-3 Bomber</strong> and <strong>Orea</strong>.</p>
     </section>
 
-    <!-- STEP 1: Choose budget -->
-    <section id="step1" class="rounded-3xl border border-neutral-200 bg-white p-5 sm:p-6 md:p-8 shadow-sm">
-      <p class="text-center mb-5 sm:mb-6 text-neutral-700 text-sm sm:text-base">Pick your budget</p>
+    <!-- Step Indicators -->
+    <div class="flex justify-center items-center gap-4 mb-8">
+      <div class="w-8 h-8 flex items-center justify-center rounded-full bg-[#5a2b10] text-white font-semibold">1</div>
+      <div class="text-[#5a2b10] font-medium">Choose Budget</div>
+      <div class="w-8 h-8 flex items-center justify-center rounded-full bg-[#e8dfcc] text-[#5a2b10] font-semibold">2</div>
+      <div class="text-[#5a2b10] font-medium">Answer Questions</div>
+      <div class="w-8 h-8 flex items-center justify-center rounded-full bg-[#e8dfcc] text-[#5a2b10] font-semibold">3</div>
+      <div class="text-[#5a2b10] font-medium">Get Your Bundle</div>
+    </div>
 
-      <!-- Primary three -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-5 text-base sm:text-lg font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="25" aria-label="Choose £25">£25</button>
-        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-5 text-base sm:text-lg font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="50" aria-label="Choose £50">£50</button>
-        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-5 text-base sm:text-lg font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer sm:col-span-1 col-span-2" data-amount="100" aria-label="Choose £100">£100</button>
+    <!-- Step 1 -->
+    <section id="step1" class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8">
+      <p class="text-center mb-6 text-neutral-700 font-medium">Pick your budget</p>
+      <div class="grid grid-cols-3 gap-3 sm:gap-4">
+        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="25">£25</button>
+        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="50">£50</button>
+        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="100">£100</button>
       </div>
 
-      <!-- See more -->
-      <div class="mt-4 text-center">
-        <button type="button" id="toggleMore" class="text-sm font-semibold text-coffee underline underline-offset-4">See more options</button>
+      <div class="mt-6 text-center">
+        <a href="mailto:bareecesta@gmail.com" class="inline-block rounded-full bg-[#5a2b10] text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Custom Gift Request</a>
       </div>
 
-      <!-- Extra tiers -->
+      <div class="mt-6 text-center">
+        <button type="button" id="toggleMore" class="text-sm font-semibold text-[#5a2b10] underline underline-offset-4">See more options</button>
+      </div>
+
       <div id="moreTiers" class="mt-4 hidden">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-sm sm:text-base font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="15" aria-label="Choose £15">£15</button>
-          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-sm sm:text-base font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="75" aria-label="Choose £75">£75</button>
-          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-sm sm:text-base font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="250" aria-label="Choose £250">£250</button>
-          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-sm sm:text-base font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="500" aria-label="Choose £500">£500</button>
+          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="15">£15</button>
+          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="75">£75</button>
+          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="250">£250</button>
+          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="500">£500</button>
         </div>
       </div>
     </section>
 
-    <!-- STEP 2: Quick questions (conditional) -->
-    <section id="step2" class="hidden rounded-3xl border border-neutral-200 bg-white p-5 sm:p-6 md:p-8 shadow-sm mt-6 sm:mt-8">
-      <h2 class="text-lg sm:text-xl font-semibold text-coffee text-center">Quick questions</h2>
-      <div id="questionContainer" class="mt-4"></div>
+    <!-- Step 2 -->
+    <section id="step2" class="hidden rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8 mt-8">
+      <h2 class="text-xl font-semibold text-[#5a2b10] text-center mb-4">Quick Questions</h2>
+      <div id="questionContainer"></div>
       <div class="mt-6 flex flex-col items-center gap-2">
-        <button type="button" id="showRecommendation" disabled class="rounded-full bg-coffee px-6 py-3 text-sm font-semibold text-white shadow transition disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5 hover:bg-white hover:text-coffee">See our recommendation</button>
-        <div class="text-xs text-neutral-500">Selected budget: <span id="chosenAmount" class="font-semibold text-coffee">£—</span></div>
-        <button type="button" id="changeAmount" class="text-sm font-semibold text-coffee underline">Change amount</button>
+        <button type="button" id="showRecommendation" disabled class="rounded-full bg-[#5a2b10] px-6 py-3 text-sm font-semibold text-white shadow transition disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white hover:text-[#5a2b10]">See Our Recommendation</button>
+        <button type="button" id="changeAmount" class="text-sm font-semibold text-[#5a2b10] underline">Back to Start</button>
       </div>
     </section>
 
-    <!-- STEP 3: Recommendation -->
-    <section id="step3" class="hidden rounded-3xl border border-neutral-200 bg-white p-5 sm:p-6 md:p-8 shadow-sm mt-6 sm:mt-8">
-      <h2 class="text-lg sm:text-xl font-semibold text-coffee text-center">Recommended bundle</h2>
-
-      <!-- Image placeholder -->
-      <div class="mt-4 overflow-hidden rounded-2xl bg-cream/60">
-        <img id="recImage" src="assets/gift-placeholder.jpg" alt="Gift bundle preview" class="w-full h-48 sm:h-56 object-cover">
+    <!-- Step 3 -->
+    <section id="step3" class="hidden rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8 mt-8">
+      <h2 class="text-xl font-semibold text-[#5a2b10] text-center mb-4">Recommended Bundle</h2>
+      <div id="recCard" class="rounded-2xl bg-[#e8dfcc]/50 p-6 mb-4">
+        <h3 id="recTitle" class="text-lg font-semibold text-[#5a2b10]">Loading…</h3>
+        <p id="recBody" class="mt-2 text-neutral-800 text-sm">We’ll suggest a bundle based on your answers.</p>
       </div>
-
-      <div id="recCard" class="mt-4 rounded-2xl bg-cream/40 p-5 sm:p-6">
-        <h3 id="recTitle" class="text-base sm:text-lg font-semibold text-coffee">Loading…</h3>
-        <p id="recBody" class="mt-2 text-neutral-800 text-sm sm:text-base">We’ll suggest a bundle based on your answers.</p>
-
-        <!-- Value breakdown bubbles: "£XX bundle = [beans+label] [item] ..." -->
-        <div id="recItems" class="mt-4 flex flex-wrap items-center gap-2"></div>
-      </div>
-
-      <!-- Upgrade to Watermelon Co for +£7.50 -->
-      <div class="mt-4 p-4 bg-cream/50 rounded-2xl text-center">
-        <p class="font-semibold text-coffee">Upgrade option:</p>
-        <p class="text-neutral-700 text-sm mt-1">Upgrade to <strong>Watermelon Co Ferment Beans</strong> for an extra <strong>£7.50</strong>.</p>
-        <a id="upgradeLink" href="#" class="inline-block mt-2 rounded-full bg-coffee text-white px-5 py-2 text-sm font-semibold hover:bg-[#4a1f0b] transition">Add Upgrade</a>
-      </div>
-
-      <!-- Return to bundles ABOVE checkout -->
+      <a id="checkout" href="#" class="block mt-4 text-center rounded-full bg-[#5a2b10] text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Proceed to Checkout</a>
       <div class="mt-6 text-center">
-        <button id="restartFlow" class="inline-block rounded-full bg-white border border-coffee text-coffee px-6 py-3 font-semibold hover:bg-coffee hover:text-white transition">Return to Bundle Options</button>
+        <button id="restartBuilder" class="rounded-full bg-[#5a2b10] text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Back to Start</button>
       </div>
-
-      <a id="checkout" href="#" class="block mt-5 sm:mt-6 text-center rounded-full bg-coffee text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Proceed to checkout</a>
-      <div class="mt-2 text-center text-xs text-neutral-500">Checkout opens in a secure Stripe page.</div>
     </section>
-
-    <!-- Home shortcut -->
-    <div class="mt-8 sm:mt-10 text-center">
-      <a href="index.html" class="inline-block rounded-full bg-coffee text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Return to Home</a>
-    </div>
   </main>
-
-  <script>
-    // Announcement bar dismissal
-    (function () {
-      try {
-        const key = 'gw_announce_dismissed_v1';
-        const bar = document.getElementById('gw-announce');
-        const btn = document.getElementById('gw-announce-close');
-        if (!bar || !btn) return;
-        if (localStorage.getItem(key) === '1') bar.style.display = 'none';
-        btn.addEventListener('click', () => { bar.style.display = 'none'; localStorage.setItem(key, '1'); });
-      } catch (_) {}
-    })();
-
-    // ====== LINKS (static Payment Links + optional upgraded versions) ======
-    const checkoutLinks = {
-      15:  { base: 'https://buy.stripe.com/aFa14mfqf9mganw8Ix3F602', upgraded: 'https://buy.stripe.com/your_15_plus_750' },
-      25:  { base: 'https://buy.stripe.com/7sY4gygujcysanwf6V3F600', upgraded: 'https://buy.stripe.com/your_25_plus_750' },
-      50:  { base: 'https://buy.stripe.com/8x200iguj0PK9js6Ap3F603', upgraded: 'https://buy.stripe.com/your_50_plus_750' },
-      75:  { base: 'https://buy.stripe.com/28EaEW4LBgOIeDM9MB3F601', upgraded: 'https://buy.stripe.com/your_75_plus_750' },
-      100: { base: 'https://buy.stripe.com/3cI00ifqfcys8fo8Ix3F604', upgraded: 'https://buy.stripe.com/your_100_plus_750' },
-      250: { base: 'https://buy.stripe.com/cNibJ01zp6a4fHQ4sh3F605', upgraded: 'https://buy.stripe.com/your_250_plus_750' },
-      500: { base: 'https://buy.stripe.com/00weVcemb1TOfHQe2R3F606', upgraded: 'https://buy.stripe.com/your_500_plus_750' }
-    };
-
-    // ====== STATE ======
-    const answers = { grinder: null, kettle: null, v60: null, espresso: null };
-    let selectedAmount = null;
-    let upgradeSelected = false;
-
-    // ====== ELEMENTS ======
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-    const step3 = document.getElementById('step3');
-
-    const dot1 = document.getElementById('dot1');
-    const dot2 = document.getElementById('dot2');
-    const dot3 = document.getElementById('dot3');
-
-    const chosenAmountEl = document.getElementById('chosenAmount');
-    const questionContainer = document.getElementById('questionContainer');
-    const showRecBtn = document.getElementById('showRecommendation');
-    const toggleMore = document.getElementById('toggleMore');
-    const moreTiers = document.getElementById('moreTiers');
-    const restartBtn = document.getElementById('restartFlow');
-
-    const upgradeBtn = document.getElementById('upgradeLink');
-    const checkoutBtn = document.getElementById('checkout');
-
-    // Rec elements
-    const recTitle = document.getElementById('recTitle');
-    const recBody = document.getElementById('recBody');
-    const recItems = document.getElementById('recItems');
-    const recImage = document.getElementById('recImage');
-
-    // ====== HELPERS ======
-    function setStep(activeIndex) {
-      const states = [
-        { dot: dot1, active: activeIndex === 1 },
-        { dot: dot2, active: activeIndex === 2 },
-        { dot: dot3, active: activeIndex === 3 },
-      ];
-      states.forEach(({dot, active}) => {
-        dot.classList.toggle('border-coffee', active);
-        dot.classList.toggle('text-coffee', active);
-        dot.classList.toggle('border-coffee/40', !active);
-        dot.classList.toggle('text-coffee/40', !active);
-      });
-    }
-
-    function updateCheckoutHref() {
-      if (!selectedAmount) { checkoutBtn.href = '#'; return; }
-      const links = checkoutLinks[selectedAmount];
-      checkoutBtn.href = upgradeSelected ? (links?.upgraded || links?.base || '#')
-                                         : (links?.base || '#');
-    }
-
-    // Renders bubbles as: "£XX bundle" bubble, then "=", then each item bubble
-    function chipsHTML(amountLabel, items) {
-      const chip = (text) => `<span class="inline-flex items-center rounded-full bg-white border border-coffee/20 px-3 py-1 text-xs sm:text-sm font-semibold text-coffee">${text}</span>`;
-      let html = chip(amountLabel) + ' <span class="text-coffee font-bold text-sm mx-1">=</span> ';
-      html += items.map(chip).join(' ');
-      return html;
-    }
-
-    function renderRecommendation(bundle) {
-      recTitle.textContent = bundle.title;
-      recBody.textContent = bundle.body;
-      recItems.innerHTML = chipsHTML(bundle.amount, bundle.items || []);
-      recImage.src = bundle.image || 'assets/gift-placeholder.jpg';
-      upgradeSelected = false;
-      upgradeBtn.textContent = 'Add Upgrade';
-      updateCheckoutHref();
-    }
-
-    // ====== COPY / BUNDLE LOGIC ======
-    function getBundle(amount, a) {
-      if (amount === 15) {
-        return {
-          amount: '£15 bundle',
-          title: '£15 — Beans & Brew',
-          body: 'A 250g bag of Brazilian coffee with a personalised label, plus one free coffee at Tasse Specialty Coffee (Edinburgh).',
-          items: ['250g Brazilian beans + custom label', '1× Free coffee @ Tasse'],
-          image: 'assets/gift-15.jpg'
-        };
-      }
-      if (amount === 25) {
-        if (a.v60 === 'no') {
-          return {
-            amount: '£25 bundle',
-            title: '£25 — V60 Starter (4-piece)',
-            body: 'A V60 4-piece starter set for home brewing, a 250g custom-label Brazilian beans bag, and one free coffee at Tasse.',
-            items: ['250g Brazilian beans + custom label', 'V60 4-piece set', '1× Free coffee @ Tasse'],
-            image: 'assets/gift-25-v60.jpg'
-          };
-        }
-        if (a.v60 === 'yes' && a.espresso === 'yes') {
-          return {
-            amount: '£25 bundle',
-            title: '£25 — Latte Art Pitcher',
-            body: 'MHW-3 Bomber High Precision Latte Art Pitcher, plus a 250g custom-label Brazilian beans bag and a free coffee at Tasse.',
-            items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber latte art pitcher', '1× Free coffee @ Tasse'],
-            image: 'assets/gift-25-pitcher.jpg'
-          };
-        }
-        return {
-          amount: '£25 bundle',
-          title: '£25 — Beans & Perks',
-          body: 'A 250g custom-label Brazilian beans bag and a free coffee at Tasse. (Tell us your preferred accessory to include here.)',
-          items: ['250g Brazilian beans + custom label', '1× Free coffee @ Tasse'],
-          image: 'assets/gift-25.jpg'
-        };
-      }
-      if (amount === 50) {
-        if (a.v60 === 'no') {
-          return {
-            amount: '£50 bundle',
-            title: '£50 — V60 Essentials + Scales & Kettle',
-            body: 'A V60 brewer, Fuego Mini Precision Scales and a gooseneck kettle — plus a 250g custom-label Brazilian beans bag and a free coffee at Tasse.',
-            items: ['250g Brazilian beans + custom label', 'V60 brewer', 'Fuego mini precision scales', 'Gooseneck kettle', '1× Free coffee @ Tasse'],
-            image: 'assets/gift-50-v60kit.jpg'
-          };
-        }
-        if (a.v60 === 'yes' && a.espresso === 'yes') {
-          return {
-            amount: '£50 bundle',
-            title: '£50 — Latte Art + Precision',
-            body: 'MHW-3 Bomber High Precision Latte Art Pitcher and Fuego Mini Precision Scales — plus beans with custom label and a free coffee at Tasse.',
-            items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber latte art pitcher', 'Fuego mini precision scales', '1× Free coffee @ Tasse'],
-            image: 'assets/gift-50-espresso.jpg'
-          };
-        }
-        if (a.v60 === 'yes' && a.espresso === 'no') {
-          return {
-            amount: '£50 bundle',
-            title: '£50 — Brew Better at Home',
-            body: 'Fuego Mini Precision Scales and a vacuum bean container — plus a 250g custom-label Brazilian beans bag and one free coffee at Tasse.',
-            items: ['250g Brazilian beans + custom label', 'Fuego mini precision scales', 'Vacuum bean container', '1× Free coffee @ Tasse'],
-            image: 'assets/gift-50-home.jpg'
-          };
-        }
-        return {
-          amount: '£50 bundle',
-          title: '£50 — Brew Better',
-          body: 'A curated coffee accessory, 250g Brazilian beans with custom label and one free coffee at Tasse.',
-          items: ['250g Brazilian beans + custom label', 'Accessory', '1× Free coffee @ Tasse'],
-          image: 'assets/gift-50.jpg'
-        };
-      }
-      if (amount === 75) {
-        return {
-          amount: '£75 bundle',
-          title: '£75 — Home Barista',
-          body: 'Curated coffee accessories, a 250g bag of Brazilian beans with personalised label, and one free coffee at Tasse.',
-          items: ['250g Brazilian beans + custom label', 'Accessory set', '1× Free coffee @ Tasse'],
-          image: 'assets/gift-75.jpg'
-        };
-      }
-      if (amount === 100) {
-        return {
-          amount: '£100 bundle',
-          title: '£100 — Orea Z1 Brew Set',
-          body: 'Includes an Orea Z1 brewer with 50 filter sheets, a custom 250g bag of Brazilian beans, and one free coffee at Tasse Specialty Coffee.',
-          items: ['250g Brazilian beans + custom label', 'Orea Z1 brewer', '50× filters', '1× Free coffee @ Tasse'],
-          image: 'assets/gift-100.jpg'
-        };
-      }
-      if (amount === 250) {
-        // Updated mapping per your spec (ask one at a time)
-        if (a.kettle === 'no') {
-          return {
-            amount: '£250 bundle',
-            title: '£250 — Precision Kettle + Orea Set',
-            body: 'MHW-3 Bomber High Precision Temperature Control Gooseneck Kettle, Orea Z1 with 300 filters, a custom 250g bag of Brazilian beans, and one free coffee at Tasse.',
-            items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber temp-control kettle', 'Orea Z1 brewer', '300× filters', '1× Free coffee @ Tasse'],
-            image: 'assets/gift-250-kettle.jpg'
-          };
-        }
-        if (a.kettle === 'yes' && a.grinder === 'no') {
-          return {
-            amount: '£250 bundle',
-            title: '£250 — Hand Grinder + Orea Set',
-            body: 'MHW-3 Bomber Hand Grinder, Orea Z1 with 300 filters, a custom 250g bag of Brazilian beans, and one free coffee at Tasse.',
-            items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber hand grinder', 'Orea Z1 brewer', '300× filters', '1× Free coffee @ Tasse'],
-            image: 'assets/gift-250-grinder.jpg'
-          };
-        }
-        // Baseline when they already have kettle & grinder
-        return {
-          amount: '£250 bundle',
-          title: '£250 — Orea Z1 Deluxe',
-          body: 'Orea Z1 with 300 filters, a custom 250g bag of Brazilian beans, and one free coffee at Tasse.',
-          items: ['250g Brazilian beans + custom label', 'Orea Z1 brewer', '300× filters', '1× Free coffee @ Tasse'],
-          image: 'assets/gift-250.jpg'
-        };
-      }
-      if (amount === 500) {
-        // Mapping confirmed — pro suitcase kit + beans + free coffee
-        return {
-          amount: '£500 bundle',
-          title: '£500 — MHW-3 Bomber B-3 Suitcase Set',
-          body: '12-piece pro kit (Blade R3 Manual Grinder, Smart Scale, Electric Kettle, Server, Dripper, Wright Cups and more) + custom 250g Brazilian beans + a free coffee at Tasse.',
-          items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber B-3 suitcase', 'Pro tools set', '1× Free coffee @ Tasse'],
-          image: 'assets/gift-500.jpg'
-        };
-      }
-      return {
-        amount: 'Custom bundle',
-        title: 'Custom Gift',
-        body: 'Your perfect coffee bundle, curated to match their brewing setup and preferences.',
-        items: ['Tailored to them'],
-        image: 'assets/gift-placeholder.jpg'
-      };
-    }
-
-    // ====== UI FLOW ======
-    document.addEventListener('DOMContentLoaded', () => {
-      // Toggle extra tiers
-      toggleMore.addEventListener('click', () => {
-        moreTiers.classList.toggle('hidden');
-        toggleMore.textContent = moreTiers.classList.contains('hidden') ? 'See more options' : 'See fewer options';
-      });
-
-      // Amount selection
-      document.querySelectorAll('.amount-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('ring-2', 'ring-coffee'));
-          btn.classList.add('ring-2', 'ring-coffee');
-
-          selectedAmount = Number(btn.dataset.amount);
-          chosenAmountEl.textContent = `£${selectedAmount}`;
-
-          // Build questions (if any)
-          buildQuestions(selectedAmount);
-
-          // If no questions → auto-skip to recommendation
-          if (!questionContainer.querySelector('button') && !showRecBtn.disabled) {
-            const bundle = getBundle(selectedAmount, answers);
-            renderRecommendation(bundle);
-            step1.classList.add('hidden');
-            step2.classList.add('hidden');
-            step3.classList.remove('hidden');
-            setStep(3);
-          } else {
-            step1.classList.add('hidden');
-            step2.classList.remove('hidden');
-            setStep(2);
-          }
-        });
-      });
-
-      // Capture answers (event delegation)
-      document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('kettle-btn')) {
-          answers.kettle = e.target.dataset.val; // 'yes' | 'no'
-          togglePickState(e.target, '.kettle-btn');
-
-          // For £250: if kettle is 'no' → enough info; if 'yes' → reveal grinder question next
-          if (selectedAmount === 250) {
-            const grinderBlock = document.getElementById('grinderFollowUp');
-            if (answers.kettle === 'no') {
-              showRecBtn.disabled = false; // one question answered; ready
-              grinderBlock?.classList.add('hidden');
-              answers.grinder = null; // clear grinder if previously set
-            } else {
-              showRecBtn.disabled = true; // must answer grinder now
-              grinderBlock?.classList.remove('hidden');
-            }
-          }
-        }
-        if (e.target.classList.contains('grinder-btn')) {
-          answers.grinder = e.target.dataset.val; // 'yes' | 'no'
-          togglePickState(e.target, '.grinder-btn');
-          if (selectedAmount === 250 && answers.kettle === 'yes') {
-            // now we have kettle yes + grinder (yes/no) → enough info
-            showRecBtn.disabled = false;
-          }
-        }
-        if (e.target.classList.contains('v60-btn')) {
-          answers.v60 = e.target.dataset.val;
-          togglePickState(e.target, '.v60-btn');
-
-          if (selectedAmount === 25 || selectedAmount === 50) {
-            if (answers.v60 === 'no') {
-              showRecBtn.disabled = false;           // enough info
-              document.getElementById('espressoFollowUp')?.classList.add('hidden');
-              answers.espresso = null;
-            } else {
-              document.getElementById('espressoFollowUp')?.classList.remove('hidden');
-              showRecBtn.disabled = !(answers.espresso);
-            }
-          }
-        }
-        if (e.target.classList.contains('espresso-btn')) {
-          answers.espresso = e.target.dataset.val;
-          togglePickState(e.target, '.espresso-btn');
-          if ((selectedAmount === 25 || selectedAmount === 50) && answers.v60 === 'yes') {
-            showRecBtn.disabled = !(answers.espresso);
-          }
-        }
-      });
-
-      // Show recommendation
-      showRecBtn.addEventListener('click', () => {
-        const bundle = getBundle(selectedAmount, answers);
-        renderRecommendation(bundle);
-        step2.classList.add('hidden');
-        step3.classList.remove('hidden');
-        setStep(3);
-      });
-
-      // Change amount (go back to Step 1)
-      document.getElementById('changeAmount').addEventListener('click', () => {
-        step2.classList.add('hidden');
-        step1.classList.remove('hidden');
-        setStep(1);
-      });
-
-      // Restart flow from Step 3 (now above checkout)
-      document.getElementById('restartFlow').addEventListener('click', () => {
-        document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('ring-2', 'ring-coffee'));
-        Object.keys(answers).forEach(k => answers[k] = null);
-        selectedAmount = null;
-        chosenAmountEl.textContent = '£—';
-        questionContainer.innerHTML = '';
-        showRecBtn.disabled = true;
-
-        step3.classList.add('hidden');
-        step1.classList.remove('hidden');
-        setStep(1);
-
-        if (!moreTiers.classList.contains('hidden')) {
-          moreTiers.classList.add('hidden');
-          toggleMore.textContent = 'See more options';
-        }
-      });
-
-      // Upgrade toggle (placeholder links until you add Payment Link variants)
-      document.getElementById('upgradeLink').addEventListener('click', (e) => {
-        e.preventDefault();
-        upgradeSelected = !upgradeSelected;
-        e.target.textContent = upgradeSelected ? 'Remove Upgrade' : 'Add Upgrade';
-        updateCheckoutHref();
-      });
-
-      // Init step
-      setStep(1);
-    });
-
-    // ====== BUILD QUESTIONS ======
-    function buildQuestions(amount) {
-      answers.v60 = answers.espresso = answers.kettle = answers.grinder = null;
-      questionContainer.innerHTML = '';
-      showRecBtn.disabled = true;
-
-      if (amount === 25 || amount === 50) {
-        // V60? If yes → ask Espresso?
-        questionContainer.innerHTML = `
-          <div class="rounded-2xl bg-cream/60 p-5 mb-4">
-            <p class="font-medium text-coffee">Do they have a V60 at home?</p>
-            <div class="mt-3 flex flex-wrap gap-3">
-              <button type="button" class="v60-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="no">No</button>
-              <button type="button" class="v60-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="yes">Yes</button>
-            </div>
-          </div>
-          <div id="espressoFollowUp" class="hidden rounded-2xl bg-cream/60 p-5">
-            <p class="font-medium text-coffee">Do they have an espresso machine at home?</p>
-            <div class="mt-3 flex flex-wrap gap-3">
-              <button type="button" class="espresso-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="no">No</button>
-              <button type="button" class="espresso-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="yes">Yes</button>
-            </div>
-          </div>
-        `;
-        return;
-      }
-
-      if (amount === 250) {
-        // Ask ONE question at a time: kettle first; only then (if Yes) ask grinder
-        questionContainer.innerHTML = `
-          <div class="rounded-2xl bg-cream/60 p-5 mb-4">
-            <p class="font-medium text-coffee">Do they have a temperature control gooseneck kettle?</p>
-            <div class="mt-3 flex flex-wrap gap-3">
-              <button type="button" class="kettle-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="no">No</button>
-              <button type="button" class="kettle-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="yes">Yes</button>
-            </div>
-          </div>
-          <div id="grinderFollowUp" class="hidden rounded-2xl bg-cream/60 p-5">
-            <p class="font-medium text-coffee">Do they have a grinder?</p>
-            <div class="mt-3 flex flex-wrap gap-3">
-              <button type="button" class="grinder-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="no">No</button>
-              <button type="button" class="grinder-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="yes">Yes</button>
-            </div>
-          </div>`;
-        return;
-      }
-
-      // All other budgets: no questions → enable direct skip
-      questionContainer.innerHTML = '<p class="text-center text-sm text-neutral-600">No extra questions needed for this bundle.</p>';
-      showRecBtn.disabled = false;
-    }
-
-    function togglePickState(activeBtn, selector) {
-      document.querySelectorAll(selector).forEach(b => b.classList.remove('bg-coffee', 'text-white'));
-      activeBtn.classList.add('bg-coffee', 'text-white');
-    }
-  </script>
 </body>
 </html>
-
