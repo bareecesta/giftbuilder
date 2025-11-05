@@ -1,0 +1,31 @@
+/* Minimal extras (Tailwind handles most styling) */
+:root{
+  --coffee:#5a2b10;
+  --cream:#e8dfcc;
+}
+
+html,body{
+  font-family: 'Figtree', system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utility helpers if you need them */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:0.75rem 1.5rem; border-radius:9999px; font-weight:600;
+  transition:transform .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+
+/* Example brand block background */
+.brand-block { background: var(--cream); border-radius: 1.5rem; }
+
+/* Make images never overflow */
+img{ max-width:100%; height:auto; display:block; }
+
+/* Small responsive tweak */
+@media (max-width:640px){
+  .stack-sm { display:flex; flex-direction:column; gap:.75rem; }
+}
