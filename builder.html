@@ -329,8 +329,6 @@
         };
       }
       if (amount === 50) {
-        // NEW £50 branching
-        // V60 = No → V60 + Fuego Mini Precision Scales + Kettle + Beans + Free Coffee
         if (a.v60 === 'no') {
           return {
             amount: '£50 bundle',
@@ -340,7 +338,6 @@
             image: 'assets/gift-50-v60kit.jpg'
           };
         }
-        // V60 = Yes & Espresso = Yes → Pitcher + Fuego Scales + Beans + Free Coffee
         if (a.v60 === 'yes' && a.espresso === 'yes') {
           return {
             amount: '£50 bundle',
@@ -350,7 +347,6 @@
             image: 'assets/gift-50-espresso.jpg'
           };
         }
-        // V60 = Yes & Espresso = No → Scales + Vacuum Container + Beans + Free Coffee
         if (a.v60 === 'yes' && a.espresso === 'no') {
           return {
             amount: '£50 bundle',
@@ -360,7 +356,6 @@
             image: 'assets/gift-50-home.jpg'
           };
         }
-        // Fallback (shouldn’t hit if questions were answered)
         return {
           amount: '£50 bundle',
           title: '£50 — Brew Better',
@@ -388,33 +383,36 @@
         };
       }
       if (amount === 250) {
+        // Updated mapping per your spec (ask one at a time)
         if (a.kettle === 'no') {
           return {
             amount: '£250 bundle',
-            title: '£250 — Precision Brew Set',
-            body: 'MHW-3 Bomber Precision Temperature Control Gooseneck Kettle, Orea Z1 with 50 filters, a custom 250g bag of Brazilian beans, and one free coffee at Tasse.',
-            items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber kettle', 'Orea Z1 brewer', '50× filters', '1× Free coffee @ Tasse'],
+            title: '£250 — Precision Kettle + Orea Set',
+            body: 'MHW-3 Bomber High Precision Temperature Control Gooseneck Kettle, Orea Z1 with 300 filters, a custom 250g bag of Brazilian beans, and one free coffee at Tasse.',
+            items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber temp-control kettle', 'Orea Z1 brewer', '300× filters', '1× Free coffee @ Tasse'],
             image: 'assets/gift-250-kettle.jpg'
           };
         }
         if (a.kettle === 'yes' && a.grinder === 'no') {
           return {
             amount: '£250 bundle',
-            title: '£250 — Grinder Upgrade Set',
-            body: 'MHW-3 Bomber Hand Grinder, a custom 250g bag of Brazilian beans, and one free coffee at Tasse.',
-            items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber hand grinder', '1× Free coffee @ Tasse'],
+            title: '£250 — Hand Grinder + Orea Set',
+            body: 'MHW-3 Bomber Hand Grinder, Orea Z1 with 300 filters, a custom 250g bag of Brazilian beans, and one free coffee at Tasse.',
+            items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber hand grinder', 'Orea Z1 brewer', '300× filters', '1× Free coffee @ Tasse'],
             image: 'assets/gift-250-grinder.jpg'
           };
         }
+        // Baseline when they already have kettle & grinder
         return {
           amount: '£250 bundle',
-          title: '£250 — Premium Coffee Kit',
-          body: 'Curated premium accessories, a custom 250g bag of Brazilian beans, and one free coffee at Tasse.',
-          items: ['250g Brazilian beans + custom label', 'Premium accessories', '1× Free coffee @ Tasse'],
+          title: '£250 — Orea Z1 Deluxe',
+          body: 'Orea Z1 with 300 filters, a custom 250g bag of Brazilian beans, and one free coffee at Tasse.',
+          items: ['250g Brazilian beans + custom label', 'Orea Z1 brewer', '300× filters', '1× Free coffee @ Tasse'],
           image: 'assets/gift-250.jpg'
         };
       }
       if (amount === 500) {
+        // Mapping confirmed — pro suitcase kit + beans + free coffee
         return {
           amount: '£500 bundle',
           title: '£500 — MHW-3 Bomber B-3 Suitcase Set',
@@ -471,22 +469,39 @@
       // Capture answers (event delegation)
       document.addEventListener('click', (e) => {
         if (e.target.classList.contains('kettle-btn')) {
-          answers.kettle = e.target.dataset.val;
+          answers.kettle = e.target.dataset.val; // 'yes' | 'no'
           togglePickState(e.target, '.kettle-btn');
+
+          // For £250: if kettle is 'no' → enough info; if 'yes' → reveal grinder question next
+          if (selectedAmount === 250) {
+            const grinderBlock = document.getElementById('grinderFollowUp');
+            if (answers.kettle === 'no') {
+              showRecBtn.disabled = false; // one question answered; ready
+              grinderBlock?.classList.add('hidden');
+              answers.grinder = null; // clear grinder if previously set
+            } else {
+              showRecBtn.disabled = true; // must answer grinder now
+              grinderBlock?.classList.remove('hidden');
+            }
+          }
         }
         if (e.target.classList.contains('grinder-btn')) {
-          answers.grinder = e.target.dataset.val;
+          answers.grinder = e.target.dataset.val; // 'yes' | 'no'
           togglePickState(e.target, '.grinder-btn');
+          if (selectedAmount === 250 && answers.kettle === 'yes') {
+            // now we have kettle yes + grinder (yes/no) → enough info
+            showRecBtn.disabled = false;
+          }
         }
         if (e.target.classList.contains('v60-btn')) {
           answers.v60 = e.target.dataset.val;
           togglePickState(e.target, '.v60-btn');
 
-          // £25 and £50 share the same follow-up logic
           if (selectedAmount === 25 || selectedAmount === 50) {
             if (answers.v60 === 'no') {
               showRecBtn.disabled = false;           // enough info
               document.getElementById('espressoFollowUp')?.classList.add('hidden');
+              answers.espresso = null;
             } else {
               document.getElementById('espressoFollowUp')?.classList.remove('hidden');
               showRecBtn.disabled = !(answers.espresso);
@@ -499,11 +514,6 @@
           if ((selectedAmount === 25 || selectedAmount === 50) && answers.v60 === 'yes') {
             showRecBtn.disabled = !(answers.espresso);
           }
-        }
-
-        // Enable once all required answers are present for that tier
-        if (selectedAmount === 250) {
-          showRecBtn.disabled = !(answers.kettle && answers.grinder);
         }
       });
 
@@ -582,6 +592,7 @@
       }
 
       if (amount === 250) {
+        // Ask ONE question at a time: kettle first; only then (if Yes) ask grinder
         questionContainer.innerHTML = `
           <div class="rounded-2xl bg-cream/60 p-5 mb-4">
             <p class="font-medium text-coffee">Do they have a temperature control gooseneck kettle?</p>
@@ -590,7 +601,7 @@
               <button type="button" class="kettle-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="yes">Yes</button>
             </div>
           </div>
-          <div class="rounded-2xl bg-cream/60 p-5">
+          <div id="grinderFollowUp" class="hidden rounded-2xl bg-cream/60 p-5">
             <p class="font-medium text-coffee">Do they have a grinder?</p>
             <div class="mt-3 flex flex-wrap gap-3">
               <button type="button" class="grinder-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="no">No</button>
