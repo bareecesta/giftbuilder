@@ -10,8 +10,6 @@
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Groundwork Coffee" />
   <meta name="theme-color" content="#5a2b10" />
-
-  <!-- Canonical (update to your live URL) -->
   <link rel="canonical" href="https://groundworkgifts.example/builder.html" />
 
   <!-- Open Graph -->
@@ -183,12 +181,13 @@
         <a id="upgradeLink" href="#" class="inline-block mt-2 rounded-full bg-coffee text-white px-5 py-2 text-sm font-semibold hover:bg-[#4a1f0b] transition">Add Upgrade</a>
       </div>
 
-      <a id="checkout" href="#" class="block mt-5 sm:mt-6 text-center rounded-full bg-coffee text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Proceed to checkout</a>
-      <div class="mt-2 text-center text-xs text-neutral-500">Checkout opens in a secure Stripe page.</div>
-
+      <!-- Return to bundles ABOVE checkout -->
       <div class="mt-6 text-center">
         <button id="restartFlow" class="inline-block rounded-full bg-white border border-coffee text-coffee px-6 py-3 font-semibold hover:bg-coffee hover:text-white transition">Return to Bundle Options</button>
       </div>
+
+      <a id="checkout" href="#" class="block mt-5 sm:mt-6 text-center rounded-full bg-coffee text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Proceed to checkout</a>
+      <div class="mt-2 text-center text-xs text-neutral-500">Checkout opens in a secure Stripe page.</div>
     </section>
 
     <!-- Home shortcut -->
@@ -303,8 +302,6 @@
         };
       }
       if (amount === 25) {
-        // Updated branching:
-        // V60 = no → V60 4-piece set
         if (a.v60 === 'no') {
           return {
             amount: '£25 bundle',
@@ -314,7 +311,6 @@
             image: 'assets/gift-25-v60.jpg'
           };
         }
-        // V60 = yes and Espresso = yes → pitcher
         if (a.v60 === 'yes' && a.espresso === 'yes') {
           return {
             amount: '£25 bundle',
@@ -324,20 +320,51 @@
             image: 'assets/gift-25-pitcher.jpg'
           };
         }
-        // V60 = yes and Espresso = no → fallback (tell me what to add and I’ll swap it in)
         return {
           amount: '£25 bundle',
           title: '£25 — Beans & Perks',
-          body: 'A 250g custom-label Brazilian beans bag and a free coffee at Tasse. (Tell me the accessory you want here and I’ll update it.)',
+          body: 'A 250g custom-label Brazilian beans bag and a free coffee at Tasse. (Tell us your preferred accessory to include here.)',
           items: ['250g Brazilian beans + custom label', '1× Free coffee @ Tasse'],
           image: 'assets/gift-25.jpg'
         };
       }
       if (amount === 50) {
+        // NEW £50 branching
+        // V60 = No → V60 + Fuego Mini Precision Scales + Kettle + Beans + Free Coffee
+        if (a.v60 === 'no') {
+          return {
+            amount: '£50 bundle',
+            title: '£50 — V60 Essentials + Scales & Kettle',
+            body: 'A V60 brewer, Fuego Mini Precision Scales and a gooseneck kettle — plus a 250g custom-label Brazilian beans bag and a free coffee at Tasse.',
+            items: ['250g Brazilian beans + custom label', 'V60 brewer', 'Fuego mini precision scales', 'Gooseneck kettle', '1× Free coffee @ Tasse'],
+            image: 'assets/gift-50-v60kit.jpg'
+          };
+        }
+        // V60 = Yes & Espresso = Yes → Pitcher + Fuego Scales + Beans + Free Coffee
+        if (a.v60 === 'yes' && a.espresso === 'yes') {
+          return {
+            amount: '£50 bundle',
+            title: '£50 — Latte Art + Precision',
+            body: 'MHW-3 Bomber High Precision Latte Art Pitcher and Fuego Mini Precision Scales — plus beans with custom label and a free coffee at Tasse.',
+            items: ['250g Brazilian beans + custom label', 'MHW-3 Bomber latte art pitcher', 'Fuego mini precision scales', '1× Free coffee @ Tasse'],
+            image: 'assets/gift-50-espresso.jpg'
+          };
+        }
+        // V60 = Yes & Espresso = No → Scales + Vacuum Container + Beans + Free Coffee
+        if (a.v60 === 'yes' && a.espresso === 'no') {
+          return {
+            amount: '£50 bundle',
+            title: '£50 — Brew Better at Home',
+            body: 'Fuego Mini Precision Scales and a vacuum bean container — plus a 250g custom-label Brazilian beans bag and one free coffee at Tasse.',
+            items: ['250g Brazilian beans + custom label', 'Fuego mini precision scales', 'Vacuum bean container', '1× Free coffee @ Tasse'],
+            image: 'assets/gift-50-home.jpg'
+          };
+        }
+        // Fallback (shouldn’t hit if questions were answered)
         return {
           amount: '£50 bundle',
           title: '£50 — Brew Better',
-          body: 'A 250g bag of Brazilian beans with personalised label, a useful brew accessory, and one free coffee at Tasse.',
+          body: 'A curated coffee accessory, 250g Brazilian beans with custom label and one free coffee at Tasse.',
           items: ['250g Brazilian beans + custom label', 'Accessory', '1× Free coffee @ Tasse'],
           image: 'assets/gift-50.jpg'
         };
@@ -454,14 +481,13 @@
         if (e.target.classList.contains('v60-btn')) {
           answers.v60 = e.target.dataset.val;
           togglePickState(e.target, '.v60-btn');
-          // £25 logic:
-          if (selectedAmount === 25) {
+
+          // £25 and £50 share the same follow-up logic
+          if (selectedAmount === 25 || selectedAmount === 50) {
             if (answers.v60 === 'no') {
-              // Enough info (V60 starter)
-              showRecBtn.disabled = false;
+              showRecBtn.disabled = false;           // enough info
               document.getElementById('espressoFollowUp')?.classList.add('hidden');
             } else {
-              // Need espresso follow-up
               document.getElementById('espressoFollowUp')?.classList.remove('hidden');
               showRecBtn.disabled = !(answers.espresso);
             }
@@ -470,7 +496,7 @@
         if (e.target.classList.contains('espresso-btn')) {
           answers.espresso = e.target.dataset.val;
           togglePickState(e.target, '.espresso-btn');
-          if (selectedAmount === 25 && answers.v60 === 'yes') {
+          if ((selectedAmount === 25 || selectedAmount === 50) && answers.v60 === 'yes') {
             showRecBtn.disabled = !(answers.espresso);
           }
         }
@@ -497,8 +523,8 @@
         setStep(1);
       });
 
-      // Restart flow from Step 3
-      restartBtn.addEventListener('click', () => {
+      // Restart flow from Step 3 (now above checkout)
+      document.getElementById('restartFlow').addEventListener('click', () => {
         document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('ring-2', 'ring-coffee'));
         Object.keys(answers).forEach(k => answers[k] = null);
         selectedAmount = null;
@@ -517,10 +543,10 @@
       });
 
       // Upgrade toggle (placeholder links until you add Payment Link variants)
-      upgradeBtn.addEventListener('click', (e) => {
+      document.getElementById('upgradeLink').addEventListener('click', (e) => {
         e.preventDefault();
         upgradeSelected = !upgradeSelected;
-        upgradeBtn.textContent = upgradeSelected ? 'Remove Upgrade' : 'Add Upgrade';
+        e.target.textContent = upgradeSelected ? 'Remove Upgrade' : 'Add Upgrade';
         updateCheckoutHref();
       });
 
@@ -534,8 +560,8 @@
       questionContainer.innerHTML = '';
       showRecBtn.disabled = true;
 
-      if (amount === 25) {
-        // £25 flow: V60? If yes → ask Espresso?
+      if (amount === 25 || amount === 50) {
+        // V60? If yes → ask Espresso?
         questionContainer.innerHTML = `
           <div class="rounded-2xl bg-cream/60 p-5 mb-4">
             <p class="font-medium text-coffee">Do they have a V60 at home?</p>
