@@ -6,9 +6,13 @@
 
   <title>Coffee Christmas Gift Builder — Groundwork Gifts</title>
   <meta name="description" content="Pick a budget and we’ll recommend the perfect coffee gift — from beans to brewing gear. Curated by Groundwork. UK delivery or free collection from 15 December." />
-  <link rel="canonical" href="https://groundworkgifts.example/builder.html" />
+  <meta name="keywords" content="coffee gift UK, coffee christmas gift set, coffee gift bundle, barista gift, christmas coffee present, coffee gifts Scotland, groundwork coffee gifts, tasse coffee christmas" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Groundwork Coffee" />
+  <meta name="theme-color" content="#5a2b10" />
+
+  <!-- Canonical (update to your live URL) -->
+  <link rel="canonical" href="https://groundworkgifts.example/builder.html" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -41,7 +45,30 @@
   </script>
   <style>
     html, body { font-family: 'Figtree', system-ui, sans-serif; }
+    /* Improve tap highlights on iOS */
+    button, a { -webkit-tap-highlight-color: rgba(0,0,0,0.08); }
   </style>
+
+  <!-- JSON-LD Product schema (update URL/image when live) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "Coffee Christmas Gift Builder",
+    "brand": "Groundwork Coffee",
+    "description": "Choose your budget and we’ll create the perfect coffee gift bundle — from beans to brewing gear, curated by barista Reece from Tasse Coffee.",
+    "image": "https://groundworkgifts.example/assets/groundwork-logo-og.png",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "GBP",
+      "lowPrice": "15",
+      "highPrice": "500",
+      "availability": "https://schema.org/InStock",
+      "url": "https://groundworkgifts.example/builder.html"
+    },
+    "areaServed": "GB"
+  }
+  </script>
 </head>
 <body class="bg-white text-black">
 
@@ -55,54 +82,55 @@
     </div>
     <button
       id="gw-announce-close"
-      class="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/40"
+      class="absolute right-2 top-2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/40"
       aria-label="Dismiss announcement"
+      type="button"
     >✕</button>
   </div>
 
-  <main class="max-w-4xl mx-auto px-6 py-12 md:py-16">
-    <h1 class="text-3xl md:text-4xl font-bold text-center text-coffee mb-8">Christmas Coffee Gift Builder</h1>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 md:py-14">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-coffee mb-6 sm:mb-8">Christmas Coffee Gift Builder</h1>
 
     <!-- Step progress with numbered circles -->
-    <div id="stepper" class="mx-auto mb-8 flex items-center justify-center gap-6">
+    <div id="stepper" class="mx-auto mb-6 sm:mb-8 flex items-center justify-center gap-5 sm:gap-6">
       <div class="flex items-center gap-2">
         <span id="dot1" class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-coffee text-coffee font-semibold">1</span>
         <span class="hidden sm:inline text-sm font-medium text-coffee">Budget</span>
       </div>
-      <div class="h-[2px] w-10 bg-coffee/20"></div>
+      <div class="h-[2px] w-8 sm:w-10 bg-coffee/20"></div>
       <div class="flex items-center gap-2">
         <span id="dot2" class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-coffee/40 text-coffee/40 font-semibold">2</span>
         <span class="hidden sm:inline text-sm font-medium text-coffee/60">Questions</span>
       </div>
-      <div class="h-[2px] w-10 bg-coffee/20"></div>
+      <div class="h-[2px] w-8 sm:w-10 bg-coffee/20"></div>
       <div class="flex items-center gap-2">
         <span id="dot3" class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-coffee/40 text-coffee/40 font-semibold">3</span>
         <span class="hidden sm:inline text-sm font-medium text-coffee/60">Checkout</span>
       </div>
     </div>
 
-    <!-- Reassurance / intro section -->
-    <section class="rounded-3xl border border-neutral-200 bg-cream/50 p-5 md:p-6 mb-6">
-      <p class="text-neutral-800 text-sm md:text-base">
+    <!-- Reassurance / intro -->
+    <section class="rounded-3xl border border-neutral-200 bg-cream/50 p-4 sm:p-5 md:p-6 mb-5 sm:mb-6">
+      <p class="text-neutral-800 text-sm sm:text-base">
         Hi, I’m <strong>Reece</strong> from <a href="https://tassecoffeeco.com" target="_blank" rel="noopener" class="font-semibold text-coffee underline underline-offset-2">Tasse</a> and founder of <strong>Groundwork</strong>.
         I’m here to make Christmas shopping for your coffee-loving partner, friend or family member easy:
         <strong>pick a budget, answer a couple of quick questions, and I’ll handle the rest.</strong>
       </p>
-      <p class="text-neutral-700 text-sm md:text-base mt-3">
+      <p class="text-neutral-700 text-sm sm:text-base mt-3">
         I’ve teamed up with my go-to brew gear brands — <strong>MHW-3 Bomber</strong> and <strong>Orea</strong> — to build bundles that
         actually get used. Collection is free from <strong>15 December</strong> or UK delivery is <strong>£5</strong>.
       </p>
     </section>
 
     <!-- STEP 1: Choose budget -->
-    <section id="step1" class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8">
-      <p class="text-center mb-6 text-neutral-700">Pick your budget</p>
+    <section id="step1" class="rounded-3xl border border-neutral-200 bg-white p-5 sm:p-6 md:p-8 shadow-sm">
+      <p class="text-center mb-5 sm:mb-6 text-neutral-700 text-sm sm:text-base">Pick your budget</p>
 
-      <!-- Primary three -->
-      <div class="grid grid-cols-3 gap-3">
-        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="25" aria-label="Choose £25">£25</button>
-        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="50" aria-label="Choose £50">£50</button>
-        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="100" aria-label="Choose £100">£100</button>
+      <!-- Primary three (stack nicely on mobile) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-5 text-base sm:text-lg font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="25" aria-label="Choose £25">£25</button>
+        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-5 text-base sm:text-lg font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="50" aria-label="Choose £50">£50</button>
+        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-5 text-base sm:text-lg font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer sm:col-span-1 col-span-2" data-amount="100" aria-label="Choose £100">£100</button>
       </div>
 
       <!-- See more -->
@@ -113,17 +141,17 @@
       <!-- Extra tiers -->
       <div id="moreTiers" class="mt-4 hidden">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="15" aria-label="Choose £15">£15</button>
-          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="75" aria-label="Choose £75">£75</button>
-          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="250" aria-label="Choose £250">£250</button>
-          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="500" aria-label="Choose £500">£500</button>
+          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-sm sm:text-base font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="15" aria-label="Choose £15">£15</button>
+          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-sm sm:text-base font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="75" aria-label="Choose £75">£75</button>
+          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-sm sm:text-base font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="250" aria-label="Choose £250">£250</button>
+          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-sm sm:text-base font-semibold text-coffee hover:-translate-y-0.5 hover:shadow cursor-pointer" data-amount="500" aria-label="Choose £500">£500</button>
         </div>
       </div>
     </section>
 
     <!-- STEP 2: Quick questions (conditional) -->
-    <section id="step2" class="hidden rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8 mt-8">
-      <h2 class="text-xl font-semibold text-coffee text-center">Quick questions</h2>
+    <section id="step2" class="hidden rounded-3xl border border-neutral-200 bg-white p-5 sm:p-6 md:p-8 shadow-sm mt-6 sm:mt-8">
+      <h2 class="text-lg sm:text-xl font-semibold text-coffee text-center">Quick questions</h2>
       <div id="questionContainer" class="mt-4"></div>
       <div class="mt-6 flex flex-col items-center gap-2">
         <button type="button" id="showRecommendation" disabled class="rounded-full bg-coffee px-6 py-3 text-sm font-semibold text-white shadow transition disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5 hover:bg-white hover:text-coffee">See our recommendation</button>
@@ -133,17 +161,17 @@
     </section>
 
     <!-- STEP 3: Recommendation -->
-    <section id="step3" class="hidden rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8 mt-8">
-      <h2 class="text-xl font-semibold text-coffee text-center">Recommended bundle</h2>
+    <section id="step3" class="hidden rounded-3xl border border-neutral-200 bg-white p-5 sm:p-6 md:p-8 shadow-sm mt-6 sm:mt-8">
+      <h2 class="text-lg sm:text-xl font-semibold text-coffee text-center">Recommended bundle</h2>
 
       <!-- Image placeholder -->
       <div class="mt-4 overflow-hidden rounded-2xl bg-cream/60">
-        <img id="recImage" src="assets/gift-placeholder.jpg" alt="Gift bundle preview" class="w-full h-56 object-cover">
+        <img id="recImage" src="assets/gift-placeholder.jpg" alt="Gift bundle preview" class="w-full h-48 sm:h-56 object-cover">
       </div>
 
-      <div id="recCard" class="mt-4 rounded-2xl bg-cream/40 p-6">
-        <h3 id="recTitle" class="text-lg font-semibold text-coffee">Loading…</h3>
-        <p id="recBody" class="mt-2 text-neutral-800 text-sm">We’ll suggest a bundle based on your answers.</p>
+      <div id="recCard" class="mt-4 rounded-2xl bg-cream/40 p-5 sm:p-6">
+        <h3 id="recTitle" class="text-base sm:text-lg font-semibold text-coffee">Loading…</h3>
+        <p id="recBody" class="mt-2 text-neutral-800 text-sm sm:text-base">We’ll suggest a bundle based on your answers.</p>
 
         <!-- Value breakdown bubbles: "£XX bundle = [beans+label] [item] ..." -->
         <div id="recItems" class="mt-4 flex flex-wrap items-center gap-2"></div>
@@ -156,7 +184,7 @@
         <a id="upgradeLink" href="#" class="inline-block mt-2 rounded-full bg-coffee text-white px-5 py-2 text-sm font-semibold hover:bg-[#4a1f0b] transition">Add Upgrade</a>
       </div>
 
-      <a id="checkout" href="#" class="block mt-6 text-center rounded-full bg-coffee text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Proceed to checkout</a>
+      <a id="checkout" href="#" class="block mt-5 sm:mt-6 text-center rounded-full bg-coffee text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Proceed to checkout</a>
       <div class="mt-2 text-center text-xs text-neutral-500">Checkout opens in a secure Stripe page.</div>
 
       <div class="mt-6 text-center">
@@ -165,7 +193,7 @@
     </section>
 
     <!-- Home shortcut -->
-    <div class="mt-10 text-center">
+    <div class="mt-8 sm:mt-10 text-center">
       <a href="index.html" class="inline-block rounded-full bg-coffee text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Return to Home</a>
     </div>
   </main>
@@ -248,7 +276,7 @@
 
     // Renders bubbles as: "£XX bundle" bubble, then "=", then each item bubble
     function chipsHTML(amountLabel, items) {
-      const chip = (text) => `<span class="inline-flex items-center rounded-full bg-white border border-coffee/20 px-3 py-1 text-xs font-semibold text-coffee">${text}</span>`;
+      const chip = (text) => `<span class="inline-flex items-center rounded-full bg-white border border-coffee/20 px-3 py-1 text-xs sm:text-sm font-semibold text-coffee">${text}</span>`;
       let html = chip(amountLabel) + ' <span class="text-coffee font-bold text-sm mx-1">=</span> ';
       html += items.map(chip).join(' ');
       return html;
@@ -257,12 +285,8 @@
     function renderRecommendation(bundle) {
       recTitle.textContent = bundle.title;
       recBody.textContent = bundle.body;
-
-      // Generate the bubble layout with “=”
       recItems.innerHTML = chipsHTML(bundle.amount, bundle.items || []);
       recImage.src = bundle.image || 'assets/gift-placeholder.jpg';
-
-      // Reset upgrade UI and set checkout link
       upgradeSelected = false;
       upgradeBtn.textContent = 'Add Upgrade';
       updateCheckoutHref();
@@ -270,7 +294,6 @@
 
     // ====== COPY / BUNDLE LOGIC ======
     function getBundle(amount, a) {
-      // Returns { amount:'£XX bundle', title, body, items[], image? }
       if (amount === 15) {
         return {
           amount: '£15 bundle',
@@ -423,7 +446,7 @@
         setStep(3);
       });
 
-      // Change amount
+      // Change amount (go back to Step 1)
       document.getElementById('changeAmount').addEventListener('click', () => {
         step2.classList.add('hidden');
         step1.classList.remove('hidden');
@@ -472,16 +495,16 @@
         questionContainer.innerHTML = `
           <div class="rounded-2xl bg-cream/60 p-5 mb-4">
             <p class="font-medium text-coffee">Do they have a temperature control gooseneck kettle?</p>
-            <div class="mt-3 flex gap-3">
-              <button type="button" class="kettle-btn rounded-full border border-coffee px-5 py-2 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="no">No</button>
-              <button type="button" class="kettle-btn rounded-full border border-coffee px-5 py-2 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="yes">Yes</button>
+            <div class="mt-3 flex flex-wrap gap-3">
+              <button type="button" class="kettle-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="no">No</button>
+              <button type="button" class="kettle-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="yes">Yes</button>
             </div>
           </div>
           <div class="rounded-2xl bg-cream/60 p-5">
             <p class="font-medium text-coffee">Do they have a grinder?</p>
-            <div class="mt-3 flex gap-3">
-              <button type="button" class="grinder-btn rounded-full border border-coffee px-5 py-2 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="no">No</button>
-              <button type="button" class="grinder-btn rounded-full border border-coffee px-5 py-2 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="yes">Yes</button>
+            <div class="mt-3 flex flex-wrap gap-3">
+              <button type="button" class="grinder-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="no">No</button>
+              <button type="button" class="grinder-btn rounded-full border border-coffee px-5 py-3 text-sm font-semibold text-coffee hover:bg-coffee hover:text-white" data-val="yes">Yes</button>
             </div>
           </div>`;
         // Wait for answers; button enables as answers come in
