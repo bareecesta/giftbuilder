@@ -34,31 +34,40 @@
         extend: {
           colors: { coffee: '#5a2b10', cream: '#e8dfcc', accent: '#f97316' },
           fontFamily: { figtree: ['Figtree', 'system-ui', 'sans-serif'] },
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+          },
+          animation: {
+            fadeIn: 'fadeIn 1s ease-out forwards',
+            fadeInSlow: 'fadeIn 1.5s ease-out forwards',
+          },
         },
       },
     };
   </script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body class="bg-white text-black font-figtree">
   <main class="max-w-5xl mx-auto px-6 py-20 text-center">
     <!-- Header -->
-    <img src="assets/groundwork logo.png" alt="Groundwork Gifts logo" class="mx-auto h-20 w-20 mb-6" />
-    <h1 class="text-4xl font-bold text-coffee mb-4">Groundwork Gifts</h1>
-    <p class="text-neutral-700 max-w-2xl mx-auto">
+    <img src="assets/groundwork logo.png" alt="Groundwork Gifts logo"
+         class="mx-auto h-20 w-20 mb-6 opacity-0 animate-fadeIn" style="animation-delay: 0.1s" />
+    <h1 class="text-4xl font-bold text-coffee mb-4 opacity-0 animate-fadeIn" style="animation-delay: 0.25s">Groundwork Gifts</h1>
+    <p class="text-neutral-700 max-w-2xl mx-auto opacity-0 animate-fadeIn" style="animation-delay: 0.4s">
       Curated coffee Christmas bundles for every budget — created by <strong>Reece Jack</strong>,
       Owner of <a href="https://tassecoffeeco.com" class="text-coffee font-semibold hover:underline" target="_blank" rel="noopener">Tasse Coffee Co.</a>
       and Founder of <strong>Groundwork Coffee</strong>.
     </p>
 
     <!-- Hero Image -->
-    <div class="mt-10 relative mx-auto max-w-3xl overflow-hidden rounded-3xl shadow-lg">
+    <div class="mt-10 relative mx-auto max-w-3xl overflow-hidden rounded-3xl shadow-lg opacity-0 animate-fadeInSlow" style="animation-delay: 0.7s">
       <img src="assets/coffee-bg.jpg" alt="Coffee cups and beans" class="w-full h-auto object-cover" />
     </div>
 
     <!-- CTA -->
-    <div class="mt-12">
+    <div class="mt-12 opacity-0 animate-fadeIn" style="animation-delay: 1.1s">
       <a href="builder.html"
          class="inline-block rounded-full bg-coffee text-white px-8 py-4 font-semibold text-lg hover:bg-[#4a1f0b] transition transform hover:-translate-y-0.5">
         Start Your Gift Builder
@@ -66,7 +75,7 @@
     </div>
 
     <!-- Optional: Secondary section -->
-    <section class="mt-16 max-w-3xl mx-auto text-neutral-700">
+    <section class="mt-16 max-w-3xl mx-auto text-neutral-700 opacity-0 animate-fadeIn" style="animation-delay: 1.3s">
       <h2 class="text-2xl font-semibold text-coffee mb-4">A Coffee Gift They’ll Actually Use</h2>
       <p>
         Each bundle is hand-selected with high-quality brewing gear and specialty beans.
