@@ -28,6 +28,39 @@
   <!-- Fonts + Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* softer slideshow */
+    .fade-host {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      max-height: 18rem;
+      overflow: hidden;
+      border-radius: 1rem;
+      background: #fff;
+      border: 1px solid rgba(90,43,16,.1);
+    }
+    .fade-host img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 900ms cubic-bezier(.22,.61,.36,1),
+                  transform 900ms cubic-bezier(.22,.61,.36,1);
+      will-change: opacity, transform;
+      backface-visibility: hidden;
+    }
+    .fade-host img.is-active { opacity: 1; transform: translateZ(0); }
+    .fade-host img.is-entering { transform: scale(1.01); }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-host img { transition: none; }
+    }
+    /* dot indicators */
+    .dots { position: absolute; bottom: .5rem; left: 50%; transform: translateX(-50%); display: flex; gap: .35rem; }
+    .dot { width: .4rem; height: .4rem; border-radius: 9999px; background: rgba(90,43,16,.3); transition: opacity .2s ease; }
+    .dot.active { background: #5a2b10; }
+  </style>
 </head>
 
 <body class="bg-white text-black font-figtree">
@@ -40,8 +73,8 @@
     <h1 class="text-3xl sm:text-4xl font-bold text-center text-[#5a2b10] mb-8">Coffee Christmas Gift Builder</h1>
 
     <section class="text-center mb-8">
-      <p class="text-neutral-700 mb-2">I’ve teamed up with my favourite coffee brands — <strong>MHW‑3 Bomber</strong> and <strong>Orea</strong> — to make gifting easy.</p>
-      <p class="text-neutral-700">Pick a budget, answer a couple of quick questions, and I’ll curate a barista‑approved bundle that lands just right.</p>
+      <p class="text-neutral-700 mb-2">I’ve teamed up with my favourite coffee brands — <strong>MHW-3 Bomber</strong> and <strong>Orea</strong> — to make gifting easy.</p>
+      <p class="text-neutral-700">Pick a budget, answer a couple of quick questions, and I’ll curate a barista-approved bundle that lands just right.</p>
     </section>
 
     <!-- Step Indicators -->
@@ -97,7 +130,7 @@
     <section id="step3" class="hidden rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8 mt-8">
       <h2 class="text-xl font-semibold text-[#5a2b10] text-center mb-4">Recommended Bundle</h2>
       <div id="recCard" class="rounded-2xl bg-[#e8dfcc]/50 p-6 mb-4">
-        <div id="recImages" class="relative w-full overflow-hidden rounded-xl aspect-[16/9] bg-white border border-[#5a2b10]/10"></div>
+        <div id="recImages" class="fade-host"></div>
         <h3 id="recTitle" class="mt-4 text-lg font-semibold text-[#5a2b10]">Loading…</h3>
         <p id="recBody" class="mt-2 text-neutral-800 text-sm">We’ll suggest a bundle based on your answers.</p>
         <div id="recBubbles" class="flex flex-wrap gap-2 mt-4"></div>
@@ -401,22 +434,22 @@
         if(a.v60 === 'no'){
           return {
             title: '£25 Gift — V60 Starter',
-            body: 'A 4‑piece V60 set, a 250g custom‑label bag of Brazilian beans, and one free coffee at Tasse.',
-            bubbles: ['V60 4‑piece set','250g Brazilian beans + custom label','1× free coffee at Tasse'],
+            body: 'A 4-piece V60 set, a 250g custom-label bag of Brazilian beans, and one free coffee at Tasse.',
+            bubbles: ['V60 4-piece set','250g Brazilian beans + custom label','1× free coffee at Tasse'],
             images: ['coffee.png']
           };
         }
         if(a.v60 === 'yes' && a.espresso === 'yes'){
           return {
             title: '£25 Gift — Milk Pitcher Set',
-            body: 'MHW‑3 Bomber high‑precision latte art pitcher plus a 250g custom‑label bag and a free coffee at Tasse.',
-            bubbles: ['MHW‑3 Bomber milk pitcher','250g Brazilian beans + custom label','1× free coffee at Tasse'],
+            body: 'MHW-3 Bomber high-precision latte art pitcher plus a 250g custom-label bag and a free coffee at Tasse.',
+            bubbles: ['MHW-3 Bomber milk pitcher','250g Brazilian beans + custom label','1× free coffee at Tasse'],
             images: ['coffee.png']
           };
         }
         return {
           title: '£25 Gift — Beans & Brew',
-          body: 'A 250g custom‑label bag of Brazilian beans and a free coffee at Tasse.',
+          body: 'A 250g custom-label bag of Brazilian beans and a free coffee at Tasse.',
           bubbles: ['250g Brazilian beans + custom label','1× free coffee at Tasse'],
           images: ['coffee.png']
         };
@@ -425,15 +458,15 @@
         if(a.v60 === 'yes' && a.espresso === 'yes'){
           return {
             title: '£50 Gift — Espresso Helper',
-            body: 'MHW‑3 Bomber milk pitcher + Fuego mini precision scales, custom‑label beans and a free coffee at Tasse.',
-            bubbles: ['MHW‑3 Bomber milk pitcher','Fuego mini precision scales','250g Brazilian beans + custom label','1× free coffee at Tasse'],
+            body: 'MHW-3 Bomber milk pitcher + Fuego mini precision scales, custom-label beans and a free coffee at Tasse.',
+            bubbles: ['MHW-3 Bomber milk pitcher','Fuego mini precision scales','250g Brazilian beans + custom label','1× free coffee at Tasse'],
             images: ['coffee.png']
           };
         }
         if(a.v60 === 'yes' && a.espresso === 'no'){
           return {
             title: '£50 Gift — Filter Pro',
-            body: 'Fuego mini precision scales, vacuum bean container, custom‑label beans and a free coffee at Tasse.',
+            body: 'Fuego mini precision scales, vacuum bean container, custom-label beans and a free coffee at Tasse.',
             bubbles: ['Fuego mini precision scales','Vacuum bean container','250g Brazilian beans + custom label','1× free coffee at Tasse'],
             images: ['coffee.png']
           };
@@ -444,11 +477,10 @@
       if(amount === 75){
         return {
           title: '£75 Gift — Filter Starter Plus',
-          body: 'V60 brew setup with a compact gooseneck kettle and the essentials: a 250g custom‑label bag and a free coffee at Tasse.',
+          body: 'V60 brew setup with a compact gooseneck kettle and the essentials: a 250g custom-label bag and a free coffee at Tasse.',
           bubbles: ['V60 brew set','Gooseneck kettle','250g Brazilian beans + custom label','1× free coffee at Tasse'],
           images: ['reggooseneck.png','reggooseneck1.png','coffee.png']
         };
-      };
       }
       if(amount === 100){
         return {
@@ -462,16 +494,16 @@
         if(a.kettle === 'no'){
           return {
             title: '£250 Gift — Precision Brew Set',
-            body: 'MHW‑3 Bomber temperature‑control gooseneck kettle + Orea Z1 with 300 filters, custom beans and a free coffee at Tasse.',
-            bubbles: ['MHW‑3 Bomber temp‑control kettle','Orea Z1 brewer','300× filters','250g Brazilian beans + custom label','1× free coffee at Tasse'],
+            body: 'MHW-3 Bomber temperature-control gooseneck kettle + Orea Z1 with 300 filters, custom beans and a free coffee at Tasse.',
+            bubbles: ['MHW-3 Bomber temp-control kettle','Orea Z1 brewer','300× filters','250g Brazilian beans + custom label','1× free coffee at Tasse'],
             images: ['gooseneck.png','gooseneck1.png','z1brewer.png','z1brewer1.png','z1brewer2.png','coffee.png']
           };
         }
         if(a.kettle === 'yes' && a.grinder === 'no'){
           return {
             title: '£250 Gift — Grinder Upgrade Set',
-            body: 'MHW‑3 Bomber hand grinder + Orea Z1 with 300 filters, custom beans and a free coffee at Tasse.',
-            bubbles: ['MHW‑3 Bomber hand grinder','Orea Z1 brewer','300× filters','250g Brazilian beans + custom label','1× free coffee at Tasse'],
+            body: 'MHW-3 Bomber hand grinder + Orea Z1 with 300 filters, custom beans and a free coffee at Tasse.',
+            bubbles: ['MHW-3 Bomber hand grinder','Orea Z1 brewer','300× filters','250g Brazilian beans + custom label','1× free coffee at Tasse'],
             images: ['grinder.png','z1brewer.png','z1brewer1.png','z1brewer2.png','coffee.png']
           };
         }
@@ -484,9 +516,9 @@
       }
       if(amount === 500){
         return {
-          title: '£500 Gift — MHW‑3 Bomber B‑3 Suitcase',
-          body: '12‑piece pro kit (Blade R3 grinder, smart scale, electric kettle, server, dripper, cups and more) + custom beans and a free coffee at Tasse.',
-          bubbles: ['MHW‑3 Bomber B‑3 suitcase (12‑piece)','250g Brazilian beans + custom label','1× free coffee at Tasse'],
+          title: '£500 Gift — MHW-3 Bomber B-3 Suitcase',
+          body: '12-piece pro kit (Blade R3 grinder, smart scale, electric kettle, server, dripper, cups and more) + custom beans and a free coffee at Tasse.',
+          bubbles: ['MHW-3 Bomber B-3 suitcase (12-piece)','250g Brazilian beans + custom label','1× free coffee at Tasse'],
           images: ['grinder.png','gooseneck.png','coffee.png']
         };
       }
@@ -504,66 +536,102 @@
       });
     }
 
-    // Simple slideshow
-    let slideTimer = null;
-    function buildSlideshowSoft(files){
-      const host = document.getElementById('recImages');
-      host.innerHTML = '';
-      if(slideTimer){ clearInterval(slideTimer); slideTimer = null; }
-      if(!files || !files.length){ return; }
-      const img = document.createElement('img');
-      img.alt = 'Bundle images';
-      img.className = 'absolute inset-0 w-full h-full object-contain p-4 transition-opacity duration-500';
-      host.appendChild(img);
-      const dots = document.createElement('div');
-      dots.className = 'absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2';
-      host.appendChild(dots);
-      let idx = 0;
-      function render(){
-        img.style.opacity = 0;
-        setTimeout(()=>{ img.src = files[idx]; img.style.opacity = 1; }, 150);
-        dots.innerHTML = '';
-        files.forEach((_,i)=>{
-          const d = document.createElement('span');
-          d.className = 'h-2 w-2 rounded-full ' + (i===idx ? 'bg-[#5a2b10]' : 'bg-[#5a2b10]/30');
-          d.addEventListener('click', ()=>{ idx=i; render(); });
-          dots.appendChild(d);
-        });
-      }
-      render();
-      slideTimer = setInterval(()=>{ idx = (idx+1)%files.length; render(); }, 2200);
-    }
-
-  
-    // Smooth crossfade slideshow
+    // Smooth crossfade slideshow (single version)
     function buildSlideshowSoft(files){
       const host = document.getElementById('recImages');
       host.innerHTML = '';
       if(window.slideTimer){ clearInterval(window.slideTimer); window.slideTimer = null; }
       if(!files || !files.length){ return; }
 
-      host.className = 'relative aspect-[4/3] max-h-72 overflow-hidden rounded-2xl bg-white';
+      host.className = 'fade-host';
       const imgA = document.createElement('img');
       const imgB = document.createElement('img');
-      [imgA,imgB].forEach(img => {
-        img.alt = 'Bundle image';
-        img.className = 'absolute inset-0 w-full h-full object-contain p-6 transition-opacity duration-700 ease-out opacity-0';
-        host.appendChild(img);
-      });
+      host.appendChild(imgA);
+      host.appendChild(imgB);
 
-      let idx = 0, showA = true;
-      function setSrc(img, file){ img.src = file; }
-      function swap(){
-        const file = files[idx];
-        if(showA){ setSrc(imgA,file); imgA.style.opacity = 1; imgB.style.opacity = 0; }
-        else { setSrc(imgB,file); imgA.style.opacity = 0; imgB.style.opacity = 1; }
-        showA = !showA;
+      // dots
+      const dotsWrap = document.createElement('div');
+      dotsWrap.className = 'dots';
+      host.appendChild(dotsWrap);
+
+      let idx = 0, useA = true, running = true;
+      const intervalMs = 3600;
+
+      function renderDots(active){
+        dotsWrap.innerHTML = '';
+        files.forEach((_, i) => {
+          const d = document.createElement('span');
+          d.className = 'dot' + (i===active ? ' active' : '');
+          d.addEventListener('click', () => { idx = i; show(idx, true); });
+          dotsWrap.appendChild(d);
+        });
       }
 
-      swap();
-      window.slideTimer = setInterval(()=>{ idx = (idx+1)%files.length; swap(); }, 3500);
+      async function preload(src) {
+        const pic = new Image();
+        pic.decoding = 'async';
+        pic.src = src;
+        try { if (pic.decode) await pic.decode(); } catch(e) {}
+        return src;
+      }
+
+      function setActive(nextImg, otherImg) {
+        otherImg.classList.remove('is-active','is-entering');
+        nextImg.classList.add('is-entering');
+        requestAnimationFrame(() => {
+          nextImg.classList.add('is-active');
+          setTimeout(() => nextImg.classList.remove('is-entering'), 80);
+        });
+      }
+
+      async function show(i, manual=false){
+        const src = files[i];
+        const target = useA ? imgA : imgB;
+        const other  = useA ? imgB : imgA;
+
+        target.classList.remove('is-active','is-entering');
+        target.style.opacity = 0;
+
+        await preload(src);
+        if(!running) return;
+
+        target.src = src;
+        setActive(target, other);
+        useA = !useA;
+        renderDots(i);
+
+        if(manual){
+          // reset autoplay timing after manual jump
+          if(window.slideTimer){ clearInterval(window.slideTimer); }
+          window.slideTimer = setInterval(next, intervalMs);
+        }
+      }
+
+      function next(){
+        idx = (idx + 1) % files.length;
+        show(idx);
+      }
+
+      // start
+      renderDots(0);
+      show(idx);
+
+      window.slideTimer = setInterval(next, intervalMs);
+
+      // pause on hover
+      host.addEventListener('mouseenter', () => {
+        if(window.slideTimer){ clearInterval(window.slideTimer); window.slideTimer = null; }
+      });
+      host.addEventListener('mouseleave', () => {
+        if(!window.slideTimer){ window.slideTimer = setInterval(next, intervalMs); }
+      });
+
+      // safety: stop if host removed
+      const observer = new MutationObserver(() => {
+        if(!document.body.contains(host)){ running = false; if(window.slideTimer){ clearInterval(window.slideTimer); } observer.disconnect(); }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
     }
   </script>
 </body>
 </html>
-
