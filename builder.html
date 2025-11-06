@@ -30,36 +30,49 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* softer slideshow */
-    .fade-host {
+    /* ---- Slick, continuous glide carousel ---- */
+    .glide-host {
       position: relative;
-      aspect-ratio: 4 / 3;
-      max-height: 18rem;
-      overflow: hidden;
-      border-radius: 1rem;
       background: #fff;
+      border-radius: 1rem;
+      overflow: hidden;
       border: 1px solid rgba(90,43,16,.1);
+      max-height: 18rem;
+      aspect-ratio: 4 / 3;
     }
-    .fade-host img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
+    .glide-track {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      animation: glide 18s linear infinite;
+      will-change: transform;
+    }
+    .glide-host:hover .glide-track { animation-play-state: paused; }
+    .glide-item {
+      flex: 0 0 auto;
+      height: 100%;
+      width: auto;
+      max-height: 14rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .glide-item img {
+      height: 100%;
+      width: auto;
       object-fit: contain;
-      padding: 1.5rem;
-      opacity: 0;
-      transition: opacity 900ms cubic-bezier(.22,.61,.36,1),
-                  transform 900ms cubic-bezier(.22,.61,.36,1);
-      will-change: opacity, transform;
-      backface-visibility: hidden;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
+      transition: transform 600ms cubic-bezier(.22,.61,.36,1), opacity 600ms cubic-bezier(.22,.61,.36,1);
+      opacity: .98;
     }
-    .fade-host img.is-active { opacity: 1; transform: translateZ(0); }
-    .fade-host img.is-entering { transform: scale(1.01); }
+    .glide-host:hover .glide-item img { transform: scale(1.02); }
+    @keyframes glide {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); } /* because we duplicate set */
+    }
     @media (prefers-reduced-motion: reduce) {
-      .fade-host img { transition: none; }
+      .glide-track { animation: none; }
+      .glide-item img { transition: none; }
     }
-    /* dot indicators */
-    .dots { position: absolute; bottom: .5rem; left: 50%; transform: translateX(-50%); display: flex; gap: .35rem; }
-    .dot { width: .4rem; height: .4rem; border-radius: 9999px; background: rgba(90,43,16,.3); transition: opacity .2s ease; }
-    .dot.active { background: #5a2b10; }
   </style>
 </head>
 
@@ -130,7 +143,7 @@
     <section id="step3" class="hidden rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8 mt-8">
       <h2 class="text-xl font-semibold text-[#5a2b10] text-center mb-4">Recommended Bundle</h2>
       <div id="recCard" class="rounded-2xl bg-[#e8dfcc]/50 p-6 mb-4">
-        <div id="recImages" class="fade-host"></div>
+        <div id="recImages" class="glide-host"></div>
         <h3 id="recTitle" class="mt-4 text-lg font-semibold text-[#5a2b10]">Loading…</h3>
         <p id="recBody" class="mt-2 text-neutral-800 text-sm">We’ll suggest a bundle based on your answers.</p>
         <div id="recBubbles" class="flex flex-wrap gap-2 mt-4"></div>
@@ -381,7 +394,7 @@
       document.getElementById('recTitle').textContent = rec.title;
       document.getElementById('recBody').textContent = rec.body;
       buildBubbles(rec.bubbles || []);
-      buildSlideshowSoft(rec.images || []);
+      buildGlideCarousel(rec.images || []);
       document.getElementById('checkout').href = paymentLinks[selectedAmount] || '#';
       step2.classList.add('hidden');
       step3.classList.remove('hidden');
@@ -421,6 +434,12 @@
     }
 
     // Recommendation content per tier
+    // Plugged in to your actual PNGs from the screenshot:
+    // - coffee.png (beans)
+    // - grinder.png (grinder)
+    // - reggooseneck.png / reggooseneck1.png (NON temp-control; only for £50 & £75)
+    // - gooseneck.png / gooseneck1.png (TEMP-control; for higher bundles)
+    // - z1brewer.png / z1brewer1.png / z1brewer2.png (Orea Z1 set)
     function getRecommendation(a, amount){
       if(amount === 15){
         return {
@@ -460,7 +479,8 @@
             title: '£50 Gift — Espresso Helper',
             body: 'MHW-3 Bomber milk pitcher + Fuego mini precision scales, custom-label beans and a free coffee at Tasse.',
             bubbles: ['MHW-3 Bomber milk pitcher','Fuego mini precision scales','250g Brazilian beans + custom label','1× free coffee at Tasse'],
-            images: ['coffee.png']
+            // User note: reggooseneck images apply to the £50/£75 bundles
+            images: ['reggooseneck.png','reggooseneck1.png','coffee.png']
           };
         }
         if(a.v60 === 'yes' && a.espresso === 'no'){
@@ -468,7 +488,7 @@
             title: '£50 Gift — Filter Pro',
             body: 'Fuego mini precision scales, vacuum bean container, custom-label beans and a free coffee at Tasse.',
             bubbles: ['Fuego mini precision scales','Vacuum bean container','250g Brazilian beans + custom label','1× free coffee at Tasse'],
-            images: ['coffee.png']
+            images: ['reggooseneck.png','reggooseneck1.png','coffee.png']
           };
         }
         // If v60=no we already bumped to £75; guard here
@@ -536,102 +556,32 @@
       });
     }
 
-    // Smooth crossfade slideshow (single version)
-    function buildSlideshowSoft(files){
+    // ---- Continuous glide carousel (duplicates array for seamless loop) ----
+    function buildGlideCarousel(files){
       const host = document.getElementById('recImages');
       host.innerHTML = '';
-      if(window.slideTimer){ clearInterval(window.slideTimer); window.slideTimer = null; }
-      if(!files || !files.length){ return; }
+      if(!files || !files.length) return;
 
-      host.className = 'fade-host';
-      const imgA = document.createElement('img');
-      const imgB = document.createElement('img');
-      host.appendChild(imgA);
-      host.appendChild(imgB);
+      host.className = 'glide-host';
+      const track = document.createElement('div');
+      track.className = 'glide-track';
+      host.appendChild(track);
 
-      // dots
-      const dotsWrap = document.createElement('div');
-      dotsWrap.className = 'dots';
-      host.appendChild(dotsWrap);
-
-      let idx = 0, useA = true, running = true;
-      const intervalMs = 3600;
-
-      function renderDots(active){
-        dotsWrap.innerHTML = '';
-        files.forEach((_, i) => {
-          const d = document.createElement('span');
-          d.className = 'dot' + (i===active ? ' active' : '');
-          d.addEventListener('click', () => { idx = i; show(idx, true); });
-          dotsWrap.appendChild(d);
-        });
-      }
-
-      async function preload(src) {
-        const pic = new Image();
-        pic.decoding = 'async';
-        pic.src = src;
-        try { if (pic.decode) await pic.decode(); } catch(e) {}
-        return src;
-      }
-
-      function setActive(nextImg, otherImg) {
-        otherImg.classList.remove('is-active','is-entering');
-        nextImg.classList.add('is-entering');
-        requestAnimationFrame(() => {
-          nextImg.classList.add('is-active');
-          setTimeout(() => nextImg.classList.remove('is-entering'), 80);
-        });
-      }
-
-      async function show(i, manual=false){
-        const src = files[i];
-        const target = useA ? imgA : imgB;
-        const other  = useA ? imgB : imgA;
-
-        target.classList.remove('is-active','is-entering');
-        target.style.opacity = 0;
-
-        await preload(src);
-        if(!running) return;
-
-        target.src = src;
-        setActive(target, other);
-        useA = !useA;
-        renderDots(i);
-
-        if(manual){
-          // reset autoplay timing after manual jump
-          if(window.slideTimer){ clearInterval(window.slideTimer); }
-          window.slideTimer = setInterval(next, intervalMs);
-        }
-      }
-
-      function next(){
-        idx = (idx + 1) % files.length;
-        show(idx);
-      }
-
-      // start
-      renderDots(0);
-      show(idx);
-
-      window.slideTimer = setInterval(next, intervalMs);
-
-      // pause on hover
-      host.addEventListener('mouseenter', () => {
-        if(window.slideTimer){ clearInterval(window.slideTimer); window.slideTimer = null; }
+      // We duplicate the set so the CSS animation can translate -50% seamlessly.
+      const doubled = [...files, ...files];
+      doubled.forEach(src => {
+        const item = document.createElement('div');
+        item.className = 'glide-item';
+        const img = document.createElement('img');
+        img.alt = 'Bundle image';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.src = src;
+        item.appendChild(img);
+        track.appendChild(item);
       });
-      host.addEventListener('mouseleave', () => {
-        if(!window.slideTimer){ window.slideTimer = setInterval(next, intervalMs); }
-      });
-
-      // safety: stop if host removed
-      const observer = new MutationObserver(() => {
-        if(!document.body.contains(host)){ running = false; if(window.slideTimer){ clearInterval(window.slideTimer); } observer.disconnect(); }
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
     }
   </script>
 </body>
 </html>
+
