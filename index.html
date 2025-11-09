@@ -4,223 +4,193 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Primary SEO -->
-  <title>Bareecesta — Reece Jack | Tasse Coffee & Groundwork</title>
-  <meta name="description" content="Reece Jack — owner of Tasse Coffee and founder of Groundwork. Coffee training, brew gear, and curated gifts. Start with the Coffee Christmas Gift Builder, or learn more about Tasse and Groundwork." />
+  <title>bareecesta — Christmas Coffee Gifts by Reece</title>
+  <meta name="description" content="Christmas coffee gifts curated by Reece at Tasse & Groundwork. Build a custom gift set, discover specialty coffee on GWR, and shop subscriptions." />
   <link rel="canonical" href="https://bareecesta.co.uk/" />
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="robots" content="index, follow" />
   <meta name="author" content="Reece Jack" />
   <meta name="theme-color" content="#5a2b10" />
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Bareecesta — Reece Jack | Tasse Coffee & Groundwork" />
-  <meta property="og:description" content="Coffee training, brew gear and curated gifts by Reece Jack. Explore Tasse Coffee, Groundwork, and the Coffee Christmas Gift Builder." />
+  <meta property="og:title" content="bareecesta — Christmas Coffee Gifts by Reece" />
+  <meta property="og:description" content="Build a Christmas coffee gift set, visit Tasse specialty coffee on GWR, and explore curated equipment and subscriptions." />
   <meta property="og:url" content="https://bareecesta.co.uk/" />
-  <meta property="og:image" content="https://bareecesta.co.uk/assets/og-bareecesta.jpg" />
+  <meta property="og:image" content="https://bareecesta.co.uk/reecemakingcoffee.jpg" />
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Bareecesta — Reece Jack | Tasse Coffee & Groundwork" />
-  <meta name="twitter:description" content="Coffee training, brew gear and curated gifts by Reece Jack." />
-  <meta name="twitter:image" content="https://bareecesta.co.uk/assets/og-bareecesta.jpg" />
+  <meta name="twitter:title" content="bareecesta — Christmas Coffee Gifts by Reece" />
+  <meta name="twitter:description" content="Barista-approved coffee gifts, Tasse specialty coffee on GWR, and subscriptions." />
+  <meta name="twitter:image" content="https://bareecesta.co.uk/reecemakingcoffee.jpg" />
 
   <!-- Fonts + Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- JSON-LD: WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebSite",
-    "name":"Bareecesta",
-    "url":"https://bareecesta.co.uk/",
-    "inLanguage":"en-GB",
-    "publisher":{"@type":"Person","name":"Reece Jack"}
-  }
-  </script>
-
-  <!-- JSON-LD: Person / Organization links -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "name":"Reece Jack",
-    "url":"https://bareecesta.co.uk/",
-    "jobTitle":"Owner, Tasse Coffee — Founder, Groundwork",
-    "sameAs":[
-      "https://tassecoffeeco.com",
-      "https://groundworkcoffee.co.uk",
-      "https://www.instagram.com/tassecoffeeco",
-      "https://www.instagram.com/groundwork_coffee"
-    ]
-  }
-  </script>
-
   <style>
-    :root {
-      --coffee:#5a2b10; /* primary brown */
-      --cream:#e8dfcc;  /* soft cream */
-    }
-    body { font-family: 'Figtree', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    body { font-family: 'Figtree', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+    .bg-brand { background-color: #5a2b10; }
+    .text-brand { color: #5a2b10; }
+    .border-brand-soft { border-color: rgba(90,43,16,.12); }
   </style>
 </head>
 
 <body class="bg-white text-black">
-  <!-- Thin announcement (optional) -->
-  <div class="bg-[var(--coffee)] text-white text-center py-2 text-xs sm:text-sm">
-    🎄 Coffee Christmas Gift Builder is live — curated gifts with free collection from 15 Dec or £5 UK delivery.
-  </div>
-
   <!-- Header -->
-  <header class="border-b border-neutral-200 bg-white/95 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3" aria-label="Bareecesta home">
-        <img src="assets/groundwork logo.png" alt="Coffee icon" class="h-9 w-9" />
-        <span class="text-[var(--coffee)] font-bold tracking-tight">Bareecesta</span>
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-neutral-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+      <a href="/" class="flex items-baseline gap-1">
+        <span class="text-brand font-semibold tracking-tight text-lg">bareecesta</span>
+        <span class="text-xs text-neutral-500 hidden sm:inline">by Reece</span>
       </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--coffee)]">
-        <a href="#about" class="hover:text-black">About</a>
-        <a href="#tasse" class="hover:text-black">Tasse</a>
-        <a href="#groundwork" class="hover:text-black">Groundwork</a>
-        <a href="builder.html" class="px-4 py-2 rounded-full bg-[var(--coffee)] text-white hover:-translate-y-0.5 shadow transition">Gift Builder</a>
+
+      <nav class="hidden sm:flex items-center gap-6 text-sm text-neutral-700">
+        <a href="#about" class="hover:text-brand">About</a>
+        <a href="#tasse" class="hover:text-brand">Tasse</a>
+        <a href="#groundwork" class="hover:text-brand">Groundwork</a>
+        <a href="#faq" class="hover:text-brand">FAQ</a>
       </nav>
-      <a href="builder.html" class="md:hidden px-3 py-2 rounded-full bg-[var(--coffee)] text-white text-sm">Gift Builder</a>
+
+      <!-- Gift Builder button (header ONLY) -->
+      <a href="/builder.html"
+         class="shrink-0 inline-flex items-center gap-2 rounded-full bg-brand text-white text-xs sm:text-sm font-semibold px-4 py-2 hover:bg-[#4a1f0b] transition">
+        🎄 Build a Christmas gift set
+      </a>
     </div>
   </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="bg-[var(--cream)]/70">
-      <div class="max-w-6xl mx-auto px-5 py-14 md:py-20 grid md:grid-cols-2 gap-10 md:items-center">
-        <div class="space-y-5">
-          <span class="inline-flex items-center rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[var(--coffee)] shadow">
-            Coffee. Skills. Community.
-          </span>
-          <h1 class="text-3xl md:text-5xl font-bold text-[var(--coffee)] leading-tight">
-            Hi, I’m Reece — I run <span class="underline decoration-[var(--coffee)]/30">Tasse Coffee</span> and founded <span class="underline decoration-[var(--coffee)]/30">Groundwork</span>.
-          </h1>
-          <p class="text-neutral-700 text-lg">
-            I help people brew better at home, support cafés with equipment and training, and build pathways into hospitality for young people.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-3">
-            <a href="builder.html" class="inline-flex items-center justify-center rounded-full bg-[var(--coffee)] px-6 py-3 text-sm font-semibold text-white shadow transition hover:-translate-y-0.5">
-              Build a Coffee Gift
-            </a>
-            <a href="#about" class="inline-flex items-center justify-center rounded-full border border-[var(--coffee)] px-6 py-3 text-sm font-semibold text-[var(--coffee)] transition hover:bg-[var(--coffee)] hover:text-white">
-              Learn more
-            </a>
-          </div>
-        </div>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <!-- Hero -->
+    <section class="grid gap-8 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.4fr)] items-center mb-14">
+      <div>
+        <p class="uppercase tracking-[0.18em] text-xs text-neutral-500 mb-3">Christmas 2024</p>
+        <h1 class="text-3xl sm:text-4xl font-bold text-brand mb-4">
+          Barista-curated coffee gifts without the guesswork.
+        </h1>
+        <p class="text-neutral-700 mb-4">
+          I’m Reece — barista, coffee nerd, and the person your coffee-obsessed pal wishes was choosing their gifts.
+          I’ve handpicked kits with <strong>Tasse</strong> and <strong>Groundwork</strong> so you can send something they’ll actually use.
+        </p>
+        <p class="text-neutral-700 mb-6">
+          Start with the Christmas Coffee Gift Set Builder, lock in a budget, and I’ll do the rest.
+        </p>
+        <a href="/builder.html"
+           class="inline-flex items-center gap-2 rounded-full bg-brand text-white font-semibold px-6 py-3 text-sm hover:bg-[#4a1f0b] transition">
+          Build a Christmas coffee gift set
+        </a>
+      </div>
+
+      <div class="rounded-3xl overflow-hidden border border-brand-soft bg-neutral-50">
+        <img src="/reecemakingcoffee.jpg"
+             alt="Reece making coffee behind the bar"
+             class="w-full h-full object-cover" />
+      </div>
+    </section>
+
+    <!-- About Reece -->
+    <section id="about" class="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1.6fr)] items-center mb-16">
+      <div class="rounded-3xl overflow-hidden border border-brand-soft bg-neutral-50">
+        <img src="/reece.png"
+             alt="Portrait of Reece"
+             class="w-full h-full object-contain p-6" />
+      </div>
+      <div>
+        <h2 class="text-xl font-semibold text-brand mb-3">Who’s curating this?</h2>
+        <p class="text-neutral-700 mb-3">
+          I’ve spent years behind espresso machines, dialling in brews and obsessing over the details that separate
+          “nice coffee” from <em>oh wow, what is this?</em> This guide is my way of packaging that experience into gifts that don’t miss.
+        </p>
+        <p class="text-neutral-700">
+          Whether they’re just getting started with pour-over or already deep into puck prep and pressure profiling,
+          the sets are built to feel personal, practical, and properly barista-approved.
+        </p>
+      </div>
+    </section>
+
+    <!-- Tasse section -->
+    <section id="tasse" class="mb-16">
+      <div class="grid gap-8 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.4fr)] items-center">
         <div>
-          <!-- Replace with a real image -->
-          <div class="bg-white rounded-3xl p-6 shadow-xl">
-            <img src="assets/hero-placeholder.jpg" alt="Reece brewing coffee" class="w-full rounded-2xl object-cover" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT REECE -->
-    <section id="about" class="bg-white">
-      <div class="max-w-5xl mx-auto px-5 py-14 md:py-20 grid md:grid-cols-5 gap-10">
-        <div class="md:col-span-2">
-          <img src="assets/reece-profile.jpg" alt="Reece Jack" class="w-full rounded-3xl border border-neutral-200 shadow-sm object-cover" />
-        </div>
-        <div class="md:col-span-3 space-y-4">
-          <h2 class="text-2xl md:text-4xl font-bold text-[var(--coffee)]">About Reece</h2>
-          <p class="text-neutral-700">
-            I’ve spent years behind the bar and on the training bench — from service in France and the UK to specialty coffee in Scotland. I split my time between running <strong>Tasse Coffee</strong>, and building <strong>Groundwork</strong>, a training pathway for young people entering hospitality.
+          <h2 class="text-xl font-semibold text-brand mb-3">Tasse — your neighbourhood specialty bar</h2>
+          <p class="text-neutral-700 mb-3">
+            Tasse is a specialty coffee shop on GWR, pouring carefully sourced coffees, running a dialled-in bar,
+            and keeping things welcoming for anyone who just loves a good cup.
           </p>
-          <ul class="space-y-2 text-neutral-800">
-            <li>• Barista training & café workflow</li>
-            <li>• Equipment advice and setup</li>
-            <li>• Youth employability & mentoring</li>
-          </ul>
-          <div class="flex flex-wrap gap-3 pt-2">
-            <a href="builder.html" class="rounded-full bg-[var(--coffee)] text-white px-5 py-3 text-sm font-semibold hover:-translate-y-0.5 transition shadow">
-              Start the Gift Builder
-            </a>
-            <a href="mailto:bareecesta@gmail.com" class="rounded-full border border-[var(--coffee)] text-[var(--coffee)] px-5 py-3 text-sm font-semibold hover:bg-[var(--coffee)] hover:text-white transition">
-              Email Reece
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TASSE -->
-    <section id="tasse" class="bg-[var(--cream)]/70">
-      <div class="max-w-6xl mx-auto px-5 py-14 md:py-20 grid md:grid-cols-2 gap-10 md:items-center">
-        <div class="space-y-4">
-          <p class="text-sm font-semibold uppercase tracking-wide text-[var(--coffee)]">Tasse Coffee</p>
-          <h3 class="text-2xl md:text-4xl font-bold text-[var(--coffee)]">Brew better at home & in your café</h3>
-          <p class="text-neutral-800">
-            From grinders and kettles to dial-in support, Tasse helps you get the most from your beans. One-to-one training, events and pop-ups across Scotland.
-          </p>
-          <div class="flex flex-wrap gap-3 pt-1">
-            <a href="https://tassecoffeeco.com" target="_blank" rel="noopener" class="rounded-full bg-[var(--coffee)] text-white px-5 py-3 text-sm font-semibold hover:-translate-y-0.5 transition shadow">Visit Tasse</a>
-            <a href="builder.html" class="rounded-full border border-[var(--coffee)] text-[var(--coffee)] px-5 py-3 text-sm font-semibold hover:bg-[var(--coffee)] hover:text-white transition">Gift Builder</a>
-          </div>
-        </div>
-        <div class="bg-white rounded-3xl p-6 shadow-xl">
-          <img src="assets/tasse-placeholder.jpg" alt="Tasse Coffee gear" class="w-full rounded-2xl object-cover" />
-        </div>
-      </div>
-    </section>
-
-    <!-- GROUNDWORK -->
-    <section id="groundwork" class="bg-white">
-      <div class="max-w-6xl mx-auto px-5 py-14 md:py-20 grid md:grid-cols-2 gap-10 md:items-center">
-        <div class="order-2 md:order-1 bg-[var(--cream)]/60 rounded-3xl p-6 shadow">
-          <img src="assets/groundwork-placeholder.jpg" alt="Groundwork training" class="w-full rounded-2xl object-cover" />
-        </div>
-        <div class="order-1 md:order-2 space-y-4">
-          <p class="text-sm font-semibold uppercase tracking-wide text-[var(--coffee)]">Groundwork</p>
-          <h3 class="text-2xl md:text-4xl font-bold text-[var(--coffee)]">Coffee as a pathway into work</h3>
-          <p class="text-neutral-800">
-            Groundwork partners with schools, colleges and cafés to deliver hands-on barista training and mentoring that leads to real roles in hospitality.
+          <p class="text-neutral-700 mb-4">
+            Beyond the bar, Tasse runs a flexible subscription so your favourite person (or you) never runs out of
+            the good stuff — roasted for sweetness, clarity, and everyday drinkability.
           </p>
           <div class="flex flex-wrap gap-3">
-            <a href="https://groundworkcoffee.co.uk" target="_blank" rel="noopener" class="rounded-full bg-[var(--coffee)] text-white px-5 py-3 text-sm font-semibold hover:-translate-y-0.5 transition shadow">Explore Groundwork</a>
-            <a href="builder.html" class="rounded-full border border-[var(--coffee)] text-[var(--coffee)] px-5 py-3 text-sm font-semibold hover:bg-[var(--coffee)] hover:text-white transition">Gift Builder</a>
+            <a href="https://tassecoffeeco.com/subscribe#subscription-plans"
+               class="inline-flex items-center gap-2 rounded-full border border-brand-soft text-brand px-5 py-2.5 text-sm font-semibold hover:bg-brand hover:text-white transition">
+              Explore Tasse subscriptions
+            </a>
           </div>
+        </div>
+        <div class="rounded-3xl overflow-hidden border border-brand-soft bg-neutral-50 flex items-center justify-center">
+          <img src="/tasse (5).png"
+               alt="Tasse specialty coffee shop"
+               class="w-full h-full object-contain p-4" />
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="bg-[var(--coffee)] text-white">
-      <div class="max-w-5xl mx-auto px-5 py-14 md:py-20 text-center space-y-4">
-        <h4 class="text-2xl md:text-4xl font-bold">Ready to build a coffee gift?</h4>
-        <p class="text-white/90 max-w-2xl mx-auto">Pick a budget, answer a couple of questions, and I’ll curate the perfect bundle. Free collection from 15 Dec or £5 UK delivery.</p>
-        <a href="builder.html" class="inline-flex items-center justify-center rounded-full bg-white text-[var(--coffee)] px-6 py-3 text-sm font-semibold shadow hover:-translate-y-0.5 transition">Open the Gift Builder</a>
+    <!-- Groundwork section -->
+    <section id="groundwork" class="mb-16">
+      <div class="rounded-3xl border border-brand-soft bg-neutral-50 p-6 sm:p-8">
+        <h2 class="text-xl font-semibold text-brand mb-3">Groundwork — for the gear and details</h2>
+        <p class="text-neutral-700 mb-3">
+          Groundwork is where the hardware comes in: thoughtful brewing gear, scales, kettles and brewers that actually
+          make coffee taste better, not just look good on the counter.
+        </p>
+        <p class="text-neutral-700 mb-1">
+          The bundles lean on that same thinking — no filler, no random gadgets, just pieces that work together and feel premium.
+        </p>
       </div>
     </section>
+
+    <!-- FAQ / Helper -->
+    <section id="faq" class="mb-16">
+      <h2 class="text-xl font-semibold text-brand mb-4">Quick questions</h2>
+      <div class="space-y-4 text-sm text-neutral-800">
+        <details class="rounded-2xl border border-brand-soft p-4">
+          <summary class="font-semibold cursor-pointer text-brand">Can you help me pick if I&rsquo;m still not sure?</summary>
+          <p class="mt-2">
+            Yes. Use the Christmas Coffee Gift Set Builder for a tailored pick, or email Reece directly at
+            <a href="mailto:bareecesta@gmail.com" class="underline text-brand">bareecesta@gmail.com</a>
+            with your budget and who you&rsquo;re buying for.
+          </p>
+        </details>
+        <details class="rounded-2xl border border-brand-soft p-4">
+          <summary class="font-semibold cursor-pointer text-brand">When will gifts be ready?</summary>
+          <p class="mt-2">
+            Gifts are prepared for collection from 15 December. If you select delivery, you&rsquo;ll receive an email before then
+            confirming your delivery timing.
+          </p>
+        </details>
+        <details class="rounded-2xl border border-brand-soft p-4">
+          <summary class="font-semibold cursor-pointer text-brand">Where does payment happen?</summary>
+          <p class="mt-2">
+            All payments run through secure Stripe checkout links. You&rsquo;ll see the final amount clearly before confirming.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Simple footer -->
+    <footer class="pb-10 text-xs text-neutral-500 flex flex-wrap items-center justify-between gap-3">
+      <span>&copy; <span id="year"></span> bareecesta / Reece Jack.</span>
+      <a href="/builder.html" class="underline hover:text-brand">Open the Christmas Coffee Gift Set Builder</a>
+    </footer>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-[var(--cream)] text-[var(--coffee)]">
-    <div class="max-w-6xl mx-auto px-5 py-10 text-center space-y-4">
-      <div class="flex flex-col items-center gap-3">
-        <img src="assets/groundwork logo.png" alt="Coffee icon" class="h-12 w-12" />
-        <p class="font-semibold">Bareecesta</p>
-      </div>
-      <nav class="flex flex-wrap items-center justify-center gap-6 text-sm font-medium">
-        <a href="#about" class="hover:text-black">About</a>
-        <a href="#tasse" class="hover:text-black">Tasse</a>
-        <a href="#groundwork" class="hover:text-black">Groundwork</a>
-        <a href="builder.html" class="hover:text-black">Gift Builder</a>
-        <a href="mailto:bareecesta@gmail.com" class="hover:text-black">Contact</a>
-      </nav>
-      <p class="text-xs text-[var(--coffee)]/70">© <span id="y"></span> Bareecesta · Made in Scotland</p>
-    </div>
-  </footer>
-
   <script>
-    // year
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // Current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
