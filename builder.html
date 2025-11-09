@@ -33,56 +33,85 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* ---- Slick, continuous glide carousel (zoomed-out images) ---- */
-    .glide-host {
-      position: relative;
-      background: #fff;
-      border-radius: 1rem;
-      overflow: hidden;
-      border: 1px solid rgba(90,43,16,.1);
-      aspect-ratio: 4 / 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .glide-track {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 2rem;
-      animation: glide 20s linear infinite;
-      will-change: transform;
-    }
-    .glide-host:hover .glide-track {
-      animation-play-state: paused;
-    }
-    .glide-item {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  /* ---- Continuous glide carousel ---- */
+  .glide-host {
+    position: relative;
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(90,43,16,.1);
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .glide-track {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    animation: glide 20s linear infinite;
+    will-change: transform;
+  }
+
+  .glide-host:hover .glide-track {
+    animation-play-state: paused;
+  }
+
+  .glide-item {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- Image styles --- */
+  .glide-item img {
+    height: 75%;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
+    transition: transform 1.2s ease, opacity 1.2s ease;
+    animation: slowZoom 14s ease-in-out infinite;
+    opacity: 0.96;
+  }
+
+  .glide-host:hover .glide-item img {
+    transform: scale(1.05);
+    animation-play-state: paused;
+  }
+
+  /* --- Smooth horizontal glide --- */
+  @keyframes glide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* --- Gentle breathing / zoom animation --- */
+  @keyframes slowZoom {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
+  /* --- Mobile adjustments --- */
+  @media (max-width: 640px) {
     .glide-item img {
-      height: 75%; /* zoomed out */
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
-      transition: transform 600ms cubic-bezier(.22,.61,.36,1),
-                  opacity 600ms cubic-bezier(.22,.61,.36,1);
-      opacity: .98;
+      height: 65%;             /* zoom out more on small screens */
+      animation: slowZoomMobile 16s ease-in-out infinite;
     }
-    .glide-host:hover .glide-item img {
-      transform: scale(1.05);
-    }
-    @keyframes glide {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .glide-track { animation: none; }
-      .glide-item img { transition: none; }
-    }
-  </style>
+  }
+
+  @keyframes slowZoomMobile {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glide-track { animation: none; }
+    .glide-item img { animation: none; transition: none; }
+  }
+</style>
 </head>
 
 <body class="bg-white text-black font-figtree">
