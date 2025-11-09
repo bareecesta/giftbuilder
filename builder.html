@@ -5,23 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Primary SEO -->
-  <title>Coffee Christmas Gift Builder — Curated Coffee Gifts by Reece at Tasse & Groundwork</title>
+  <title>Christmas Coffee Gift Set Builder — Curated Coffee Gifts by Reece at Tasse & Groundwork</title>
   <meta name="description" content="Build a barista-approved coffee Christmas gift in minutes. Pick your budget, answer a few questions, and let Reece from Tasse curate the perfect bundle. Free collection from 15 Dec or UK delivery." />
   <link rel="canonical" href="https://bareecesta.co.uk/builder.html" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="Reece Jack — Tasse & Groundwork" />
   <meta name="theme-color" content="#5a2b10" />
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Coffee Christmas Gift Builder — Barista-Approved Gifts" />
+  <meta property="og:title" content="Christmas Coffee Gift Set Builder — Barista-Approved Gifts" />
   <meta property="og:description" content="Choose your budget, answer a couple of questions, and get a tailored coffee gift curated by Reece from Tasse Coffee and Groundwork." />
   <meta property="og:url" content="https://bareecesta.co.uk/builder.html" />
   <meta property="og:image" content="https://bareecesta.co.uk/assets/og-gift-builder.jpg" />
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Coffee Christmas Gift Builder — Barista-Approved Gifts" />
+  <meta name="twitter:title" content="Christmas Coffee Gift Set Builder — Barista-Approved Gifts" />
   <meta name="twitter:description" content="Barista-curated coffee bundles with free collection from 15 December or £5 UK delivery." />
   <meta name="twitter:image" content="https://bareecesta.co.uk/assets/og-gift-builder.jpg" />
 
@@ -45,8 +48,8 @@
     .glide-track {
       display: flex;
       align-items: center;
-      gap: 2rem;              /* more breathing room between items */
-      padding: 2rem;          /* padding so images sit away from edges */
+      gap: 2rem;
+      padding: 2rem;
       animation: glide 20s linear infinite;
       will-change: transform;
     }
@@ -60,7 +63,7 @@
       justify-content: center;
     }
     .glide-item img {
-      height: 75%;            /* key change: zoom OUT */
+      height: 75%; /* zoomed out */
       width: auto;
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
@@ -69,11 +72,11 @@
       opacity: .98;
     }
     .glide-host:hover .glide-item img {
-      transform: scale(1.05); /* gentle hover polish */
+      transform: scale(1.05);
     }
     @keyframes glide {
       from { transform: translateX(0); }
-      to   { transform: translateX(-50%); } /* duplicated set allows seamless loop */
+      to   { transform: translateX(-50%); }
     }
     @media (prefers-reduced-motion: reduce) {
       .glide-track { animation: none; }
@@ -89,11 +92,15 @@
   </div>
 
   <main class="max-w-4xl mx-auto px-6 py-12 sm:py-16">
-    <h1 class="text-3xl sm:text-4xl font-bold text-center text-[#5a2b10] mb-8">Coffee Christmas Gift Builder</h1>
+    <h1 class="text-3xl sm:text-4xl font-bold text-center text-[#5a2b10] mb-8">Christmas Coffee Gift Set Builder</h1>
 
     <section class="text-center mb-8">
-      <p class="text-neutral-700 mb-2">I’ve teamed up with my favourite coffee brands — <strong>MHW-3 Bomber</strong> and <strong>Orea</strong> — to make gifting easy.</p>
-      <p class="text-neutral-700">Pick a budget, answer a couple of quick questions, and I’ll curate a barista-approved bundle that lands just right.</p>
+      <p class="text-neutral-700 mb-2">
+        Reece from Tasse is here to rescue your Christmas. I’ve teamed up with my favourite coffee brands — <strong>MHW-3 Bomber</strong> and <strong>Orea</strong> — to make gifting easy.
+      </p>
+      <p class="text-neutral-700">
+        Pick a budget, answer a couple of quick questions, and I’ll curate a barista-approved bundle that lands just right.
+      </p>
     </section>
 
     <!-- Step Indicators -->
@@ -117,7 +124,10 @@
 
       <!-- Custom email button -->
       <div class="mt-6 flex justify-center">
-        <a href="mailto:bareecesta@gmail.com?subject=Custom%20Coffee%20Gift%20Request&body=Hi%20Reece%2C%0A%0AMy%20budget%3A%20%5B%5D%0ARecipient%27s%20setup%20(espresso%2C%20V60%2C%20etc.)%3A%20%5B%5D%0ACollection%20or%20Delivery%3A%20%5B%5D%0ADeadline%3A%20%5B%5D%0A%0AAny%20notes%3A%20%5B%5D" class="inline-block rounded-full bg-[#5a2b10] text-white px-6 py-3 text-sm sm:text-base font-semibold hover:bg-[#4a1f0b] transition">Email Reece for a custom gift</a>
+        <a href="mailto:bareecesta@gmail.com?subject=Custom%20Coffee%20Gift%20Request&body=Hi%20Reece%2C%0A%0AMy%20budget%3A%20%5B%5D%0ARecipient%27s%20setup%20(espresso%2C%20V60%2C%20etc.)%3A%20%5B%5D%0ACollection%20or%20Delivery%3A%20%5B%5D%0ADeadline%3A%20%5B%5D%0A%0AAny%20notes%3A%20%5B%5D"
+           class="inline-block rounded-full bg-[#5a2b10] text-white px-6 py-3 text-sm sm:text-base font-semibold hover:bg-[#4a1f0b] transition">
+          Email Reece for a custom gift
+        </a>
       </div>
 
       <div class="mt-6 text-center">
@@ -140,7 +150,10 @@
       <div id="questionContainer"></div>
       <div id="autoUpgradeNotice" class="hidden mt-4 text-center text-sm text-[#5a2b10] font-medium"></div>
       <div class="mt-6 flex flex-col items-center gap-2">
-        <button type="button" id="showRecommendation" disabled class="rounded-full bg-[#5a2b10] px-6 py-3 text-sm font-semibold text-white shadow transition disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white hover:text-[#5a2b10]">See Our Recommendation</button>
+        <button type="button" id="showRecommendation" disabled
+                class="rounded-full bg-[#5a2b10] px-6 py-3 text-sm font-semibold text-white shadow transition disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white hover:text-[#5a2b10]">
+          See Our Recommendation
+        </button>
         <button type="button" id="changeAmount" class="text-sm font-semibold text-[#5a2b10] underline">Back to Start</button>
       </div>
     </section>
@@ -158,14 +171,41 @@
       <!-- Upgrade option -->
       <label class="flex items-center gap-3 p-4 rounded-2xl bg-[#e8dfcc]/60">
         <input type="checkbox" id="upgradeBeans" class="h-5 w-5">
-        <span class="text-sm text-[#5a2b10]"><strong>Upgrade beans</strong> to <em>Watermelon Co Ferment</em> for <strong>+£7.50</strong>.</span>
+        <span class="text-sm text-[#5a2b10]">
+          <strong>Upgrade beans</strong> to <em>Watermelon Co Ferment</em> for <strong>+£7.50</strong>.
+        </span>
       </label>
-      <p id="upgradeNote" class="hidden mt-2 text-xs text-neutral-600">We’ll email a secure £7.50 link for the upgrade right after checkout.</p>
+      <p id="upgradeNote" class="hidden mt-2 text-xs text-neutral-600">
+        We’ll email a secure £7.50 link for the upgrade right after checkout.
+      </p>
 
-      <div class="mt-6 flex flex-col items-center gap-3">
-        <button id="restartBuilder" class="rounded-full bg-[#5a2b10] text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Back to Start</button>
-        <a id="checkout" href="#" class="inline-block text-center rounded-full bg-[#5a2b10] text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">Proceed to Checkout</a>
-        <div class="text-center text-xs text-neutral-500">Checkout opens in a secure Stripe page.</div>
+      <!-- Pre-checkout info -->
+      <p class="mt-4 text-xs sm:text-sm text-neutral-600">
+        After checkout, you’ll receive an email ahead of 15 December to confirm delivery details (if you’ve chosen delivery),
+        and another email confirming when your gift will be ready to collect from 15 December.
+      </p>
+
+      <!-- Actions: Back / Email / Checkout -->
+      <div class="mt-6 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3">
+        <button id="restartBuilder"
+                class="rounded-full bg-white text-[#5a2b10] border border-[#5a2b10] px-6 py-3 font-semibold hover:bg-[#5a2b10] hover:text-white transition">
+          Back to Start
+        </button>
+
+        <a id="emailReece"
+           href="mailto:bareecesta@gmail.com?subject=Question%20about%20my%20coffee%20gift%20set&body=Hi%20Reece%2C%0A%0AI%27ve%20just%20used%20the%20Christmas%20Coffee%20Gift%20Set%20Builder%20and%20have%20a%20question%20about%20my%20recommended%20bundle.%0A%0A"
+           class="inline-block rounded-full bg-white text-[#5a2b10] border border-[#5a2b10] px-6 py-3 text-sm font-semibold hover:bg-[#5a2b10] hover:text-white transition">
+          Email Reece a question
+        </a>
+
+        <a id="checkout"
+           href="#"
+           class="inline-block rounded-full bg-[#5a2b10] text-white px-6 py-3 font-semibold hover:bg-[#4a1f0b] transition">
+          Proceed to Checkout
+        </a>
+      </div>
+      <div class="text-center text-xs text-neutral-500 mt-1">
+        Checkout opens in a secure Stripe page.
       </div>
     </section>
   </main>
@@ -182,8 +222,20 @@
       500: 'https://buy.stripe.com/00weVcemb1TOfHQe2R3F606'
     };
 
+    const upgradePaymentLinks = {
+      15: 'https://buy.stripe.com/bJedR8emb0PKbrAaQF3F608',
+      25: 'https://buy.stripe.com/14A3cudi71TO7bke2R3F609',
+      50: 'https://buy.stripe.com/aFa5kCdi7gOI7bkgaZ3F60a',
+      75: 'https://buy.stripe.com/28EcN41zpfKEfHQcYN3F60b',
+      100: 'https://buy.stripe.com/5kQ3cub9Z7e867g7Et3F60c',
+      250: 'https://buy.stripe.com/9B6eVcce32XSdzI1g53F60d',
+      500: 'https://buy.stripe.com/eVqcN44LB41W8foe2R3F607'
+    };
+
     const answers = { v60: null, espresso: null, grinder: null, kettle: null };
     let selectedAmount = null;
+    let currentBaseLink = '#';
+    let currentUpgradeLink = null;
 
     // --- Elements ---
     const step1 = document.getElementById('step1');
@@ -194,6 +246,9 @@
     const toggleMore = document.getElementById('toggleMore');
     const moreTiers = document.getElementById('moreTiers');
     const autoNotice = document.getElementById('autoUpgradeNotice');
+    const upgradeCb = document.getElementById('upgradeBeans');
+    const upgradeNote = document.getElementById('upgradeNote');
+    const checkoutBtn = document.getElementById('checkout');
 
     function setStep(n){
       const circles = document.querySelectorAll('#steps > div.w-8');
@@ -386,7 +441,15 @@
       document.getElementById('recBody').textContent = rec.body;
       buildBubbles(rec.bubbles || []);
       buildGlideCarousel(rec.images || []);
-      document.getElementById('checkout').href = paymentLinks[selectedAmount] || '#';
+
+      // reset upgrade toggle for new recommendation
+      upgradeCb.checked = false;
+      upgradeNote.classList.add('hidden');
+
+      currentBaseLink = paymentLinks[selectedAmount] || '#';
+      currentUpgradeLink = upgradePaymentLinks[selectedAmount] || null;
+      updateCheckoutHref();
+
       step2.classList.add('hidden');
       step3.classList.remove('hidden');
       setStep(3);
@@ -397,10 +460,14 @@
     document.getElementById('changeAmount').addEventListener('click', restart);
     document.getElementById('restartBuilder').addEventListener('click', restart);
 
-    const upgradeCb = document.getElementById('upgradeBeans');
-    const upgradeNote = document.getElementById('upgradeNote');
+    function updateCheckoutHref(){
+      const useUpgrade = upgradeCb.checked && currentUpgradeLink;
+      checkoutBtn.href = useUpgrade ? currentUpgradeLink : currentBaseLink;
+    }
+
     upgradeCb.addEventListener('change', () => {
       upgradeNote.classList.toggle('hidden', !upgradeCb.checked);
+      updateCheckoutHref();
     });
 
     function restart(){
@@ -416,11 +483,16 @@
         moreTiers.classList.add('hidden');
         toggleMore.textContent = 'See more options';
       }
+      upgradeCb.checked = false;
+      upgradeNote.classList.add('hidden');
+      currentBaseLink = '#';
+      currentUpgradeLink = null;
+      checkoutBtn.href = '#';
       setStep(1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Recommendations with mapped images
+    // Recommendation content per tier
     function getRecommendation(a, amount){
       if(amount === 15){
         return {
@@ -434,8 +506,8 @@
         if(a.v60 === 'no'){
           return {
             title: '£25 Gift — V60 Starter',
-            body: 'A 4-piece V60 set, a 250g custom-label bag of Brazilian beans, and one free coffee at Tasse.',
-            bubbles: ['V60 4-piece set','250g Brazilian beans + custom label','1× free coffee at Tasse'],
+            body: 'A V60 brew set, a 250g custom-label bag of Brazilian beans, and one free coffee at Tasse.',
+            bubbles: ['V60 brew set','250g Brazilian beans + custom label','1× free coffee at Tasse'],
             images: ['coffee.png']
           };
         }
