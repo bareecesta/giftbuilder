@@ -30,44 +30,50 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* ---- Slick, continuous glide carousel ---- */
+    /* ---- Slick, continuous glide carousel (zoomed-out images) ---- */
     .glide-host {
       position: relative;
       background: #fff;
       border-radius: 1rem;
       overflow: hidden;
       border: 1px solid rgba(90,43,16,.1);
-      max-height: 18rem;
       aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .glide-track {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
-      animation: glide 18s linear infinite;
+      gap: 2rem;              /* more breathing room between items */
+      padding: 2rem;          /* padding so images sit away from edges */
+      animation: glide 20s linear infinite;
       will-change: transform;
     }
-    .glide-host:hover .glide-track { animation-play-state: paused; }
+    .glide-host:hover .glide-track {
+      animation-play-state: paused;
+    }
     .glide-item {
       flex: 0 0 auto;
-      height: 100%;
-      width: auto;
-      max-height: 14rem;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .glide-item img {
-      height: 100%;
+      height: 75%;            /* key change: zoom OUT */
       width: auto;
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
-      transition: transform 600ms cubic-bezier(.22,.61,.36,1), opacity 600ms cubic-bezier(.22,.61,.36,1);
+      transition: transform 600ms cubic-bezier(.22,.61,.36,1),
+                  opacity 600ms cubic-bezier(.22,.61,.36,1);
       opacity: .98;
     }
-    .glide-host:hover .glide-item img { transform: scale(1.02); }
+    .glide-host:hover .glide-item img {
+      transform: scale(1.05); /* gentle hover polish */
+    }
     @keyframes glide {
       from { transform: translateX(0); }
-      to   { transform: translateX(-50%); } /* because we duplicate set */
+      to   { transform: translateX(-50%); } /* duplicated set allows seamless loop */
     }
     @media (prefers-reduced-motion: reduce) {
       .glide-track { animation: none; }
@@ -227,28 +233,24 @@
 
     // Build questions according to spec
     function buildQuestions(amount){
-      // reset
       answers.v60 = answers.espresso = answers.grinder = answers.kettle = null;
       showRecBtn.disabled = true;
       questionContainer.dataset.autoskip = 'false';
       autoNotice.classList.add('hidden');
       autoNotice.textContent = '';
 
-      // £100 fixed bundle (no questions)
       if(amount === 100){
         questionContainer.innerHTML = '<p class="text-center text-sm text-neutral-600">No extra questions needed for this bundle.</p>';
         questionContainer.dataset.autoskip = 'true';
         return;
       }
 
-      // £15, £75, £500 have no questions
       if([15,75,500].includes(amount)){
         questionContainer.innerHTML = '<p class="text-center text-sm text-neutral-600">No extra questions needed for this bundle.</p>';
         questionContainer.dataset.autoskip = 'true';
         return;
       }
 
-      // £25 flow: Ask V60 first; if yes, ask Espresso
       if(amount === 25){
         questionContainer.innerHTML = `
           <div class="rounded-2xl bg-[#e8dfcc]/60 p-5 mb-4">
@@ -263,7 +265,6 @@
         return;
       }
 
-      // £50 flow: Ask V60; if NO -> auto move to £75, else ask Espresso
       if(amount === 50){
         questionContainer.innerHTML = `
           <div class="rounded-2xl bg-[#e8dfcc]/60 p-5 mb-4">
@@ -278,7 +279,6 @@
         return;
       }
 
-      // £250 flow: Kettle -> (if yes) Grinder
       if(amount === 250){
         questionContainer.innerHTML = `
           <div class="rounded-2xl bg-[#e8dfcc]/60 p-5 mb-4">
@@ -293,19 +293,16 @@
         return;
       }
 
-      // default guard
       questionContainer.innerHTML = '<p class="text-center text-sm text-neutral-600">No extra questions needed for this bundle.</p>';
       questionContainer.dataset.autoskip = 'true';
     }
 
-    // Delegated clicks for question buttons
+    // Delegated clicks for questions
     document.addEventListener('click', (e) => {
-      // V60
       if(e.target.classList.contains('v60-btn')){
         answers.v60 = e.target.dataset.val;
         togglePickState(e.target, '.v60-btn');
 
-        // £25 follow-up
         if(selectedAmount === 25){
           const f = document.getElementById('follow25');
           if(answers.v60 === 'no'){
@@ -324,11 +321,9 @@
           }
         }
 
-        // £50 follow-up
         if(selectedAmount === 50){
           const f = document.getElementById('follow50');
           if(answers.v60 === 'no'){
-            // Auto-move to £75 package
             selectedAmount = 75;
             autoNotice.classList.remove('hidden');
             autoNotice.textContent = 'We\'ve moved you to our £75 bundle (best value for no V60 at home).';
@@ -347,14 +342,12 @@
         }
       }
 
-      // Espresso
       if(e.target.classList.contains('espresso-btn')){
         answers.espresso = e.target.dataset.val;
         togglePickState(e.target, '.espresso-btn');
         showRecBtn.disabled = false;
       }
 
-      // Kettle
       if(e.target.classList.contains('kettle-btn')){
         answers.kettle = e.target.dataset.val;
         togglePickState(e.target, '.kettle-btn');
@@ -375,7 +368,6 @@
         }
       }
 
-      // Grinder
       if(e.target.classList.contains('grinder-btn')){
         answers.grinder = e.target.dataset.val;
         togglePickState(e.target, '.grinder-btn');
@@ -388,7 +380,6 @@
       activeBtn.classList.add('bg-[#5a2b10]','text-white');
     }
 
-    // Show recommendation
     function showRecommendation(){
       const rec = getRecommendation(answers, selectedAmount);
       document.getElementById('recTitle').textContent = rec.title;
@@ -403,13 +394,9 @@
     }
 
     document.getElementById('showRecommendation').addEventListener('click', showRecommendation);
-
-    // Back to start from Step 2
     document.getElementById('changeAmount').addEventListener('click', restart);
-    // Back to start from Step 3
     document.getElementById('restartBuilder').addEventListener('click', restart);
 
-    // Upgrade checkbox note
     const upgradeCb = document.getElementById('upgradeBeans');
     const upgradeNote = document.getElementById('upgradeNote');
     upgradeCb.addEventListener('change', () => {
@@ -433,13 +420,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Recommendation content per tier
-    // Plugged in to your actual PNGs from the screenshot:
-    // - coffee.png (beans)
-    // - grinder.png (grinder)
-    // - reggooseneck.png / reggooseneck1.png (NON temp-control; only for £50 & £75)
-    // - gooseneck.png / gooseneck1.png (TEMP-control; for higher bundles)
-    // - z1brewer.png / z1brewer1.png / z1brewer2.png (Orea Z1 set)
+    // Recommendations with mapped images
     function getRecommendation(a, amount){
       if(amount === 15){
         return {
@@ -479,7 +460,6 @@
             title: '£50 Gift — Espresso Helper',
             body: 'MHW-3 Bomber milk pitcher + Fuego mini precision scales, custom-label beans and a free coffee at Tasse.',
             bubbles: ['MHW-3 Bomber milk pitcher','Fuego mini precision scales','250g Brazilian beans + custom label','1× free coffee at Tasse'],
-            // User note: reggooseneck images apply to the £50/£75 bundles
             images: ['reggooseneck.png','reggooseneck1.png','coffee.png']
           };
         }
@@ -491,7 +471,6 @@
             images: ['reggooseneck.png','reggooseneck1.png','coffee.png']
           };
         }
-        // If v60=no we already bumped to £75; guard here
         return { title: '£50 Gift', body: 'Answer the questions to see the best fit.', bubbles: [], images: [] };
       }
       if(amount === 75){
@@ -542,7 +521,12 @@
           images: ['grinder.png','gooseneck.png','coffee.png']
         };
       }
-      return { title: 'Custom Gift', body: 'Your perfect coffee bundle, curated to match their setup.', bubbles: [], images: [] };
+      return {
+        title: 'Custom Gift',
+        body: 'Your perfect coffee bundle, curated to match their setup.',
+        bubbles: [],
+        images: []
+      };
     }
 
     function buildBubbles(items){
@@ -556,7 +540,7 @@
       });
     }
 
-    // ---- Continuous glide carousel (duplicates array for seamless loop) ----
+    // Continuous glide carousel
     function buildGlideCarousel(files){
       const host = document.getElementById('recImages');
       host.innerHTML = '';
@@ -567,7 +551,6 @@
       track.className = 'glide-track';
       host.appendChild(track);
 
-      // We duplicate the set so the CSS animation can translate -50% seamlessly.
       const doubled = [...files, ...files];
       doubled.forEach(src => {
         const item = document.createElement('div');
@@ -584,4 +567,3 @@
   </script>
 </body>
 </html>
-
