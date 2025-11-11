@@ -33,85 +33,85 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-  /* ---- Continuous glide carousel ---- */
-  .glide-host {
-    position: relative;
-    background: #fff;
-    border-radius: 1rem;
-    overflow: hidden;
-    border: 1px solid rgba(90,43,16,.1);
-    aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .glide-track {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem;
-    animation: glide 20s linear infinite;
-    will-change: transform;
-  }
-
-  .glide-host:hover .glide-track {
-    animation-play-state: paused;
-  }
-
-  .glide-item {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* --- Image styles --- */
-  .glide-item img {
-    height: 75%;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
-    transition: transform 1.2s ease, opacity 1.2s ease;
-    animation: slowZoom 14s ease-in-out infinite;
-    opacity: 0.96;
-  }
-
-  .glide-host:hover .glide-item img {
-    transform: scale(1.05);
-    animation-play-state: paused;
-  }
-
-  /* --- Smooth horizontal glide --- */
-  @keyframes glide {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-
-  /* --- Gentle breathing / zoom animation --- */
-  @keyframes slowZoom {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.04); }
-  }
-
-  /* --- Mobile adjustments --- */
-  @media (max-width: 640px) {
-    .glide-item img {
-      height: 65%;             /* zoom out more on small screens */
-      animation: slowZoomMobile 16s ease-in-out infinite;
+    /* ---- Continuous glide carousel ---- */
+    .glide-host {
+      position: relative;
+      background: #fff;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(90,43,16,.1);
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-  }
 
-  @keyframes slowZoomMobile {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.06); }
-  }
+    .glide-track {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem;
+      animation: glide 20s linear infinite;
+      will-change: transform;
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .glide-track { animation: none; }
-    .glide-item img { animation: none; transition: none; }
-  }
-</style>
+    .glide-host:hover .glide-track {
+      animation-play-state: paused;
+    }
+
+    .glide-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* --- Image styles --- */
+    .glide-item img {
+      height: 75%;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
+      transition: transform 1.2s ease, opacity 1.2s ease;
+      animation: slowZoom 14s ease-in-out infinite;
+      opacity: 0.96;
+    }
+
+    .glide-host:hover .glide-item img {
+      transform: scale(1.05);
+      animation-play-state: paused;
+    }
+
+    /* --- Smooth horizontal glide --- */
+    @keyframes glide {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* --- Gentle breathing / zoom animation --- */
+    @keyframes slowZoom {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    /* --- Mobile adjustments --- */
+    @media (max-width: 640px) {
+      .glide-item img {
+        height: 65%;
+        animation: slowZoomMobile 16s ease-in-out infinite;
+      }
+    }
+
+    @keyframes slowZoomMobile {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .glide-track { animation: none; }
+      .glide-item img { animation: none; transition: none; }
+    }
+  </style>
 </head>
 
 <body class="bg-white text-black font-figtree">
@@ -265,6 +265,7 @@
     let selectedAmount = null;
     let currentBaseLink = '#';
     let currentUpgradeLink = null;
+    let currentRec = null;
 
     // --- Elements ---
     const step1 = document.getElementById('step1');
@@ -466,6 +467,8 @@
 
     function showRecommendation(){
       const rec = getRecommendation(answers, selectedAmount);
+      currentRec = rec;
+
       document.getElementById('recTitle').textContent = rec.title;
       document.getElementById('recBody').textContent = rec.body;
       buildBubbles(rec.bubbles || []);
@@ -477,6 +480,7 @@
 
       currentBaseLink = paymentLinks[selectedAmount] || '#';
       currentUpgradeLink = upgradePaymentLinks[selectedAmount] || null;
+
       updateCheckoutHref();
 
       step2.classList.add('hidden');
@@ -490,8 +494,35 @@
     document.getElementById('restartBuilder').addEventListener('click', restart);
 
     function updateCheckoutHref(){
-      const useUpgrade = upgradeCb.checked && currentUpgradeLink;
-      checkoutBtn.href = useUpgrade ? currentUpgradeLink : currentBaseLink;
+      if (!selectedAmount) {
+        checkoutBtn.href = '#';
+        return;
+      }
+
+      const baseLink = paymentLinks[selectedAmount] || '#';
+      const hasUpgradeLink = !!upgradePaymentLinks[selectedAmount];
+      const upgradeOn = upgradeCb.checked && hasUpgradeLink;
+
+      const chosenLink = upgradeOn
+        ? (upgradePaymentLinks[selectedAmount] || baseLink)
+        : baseLink;
+
+      const rec = currentRec || getRecommendation(answers, selectedAmount);
+      const title = rec.title || 'Unknown bundle';
+
+      const ans = [];
+      if (answers.v60 !== null) ans.push(`V60:${answers.v60}`);
+      if (answers.espresso !== null) ans.push(`Espresso:${answers.espresso}`);
+      if (answers.kettle !== null) ans.push(`Kettle:${answers.kettle}`);
+      if (answers.grinder !== null) ans.push(`Grinder:${answers.grinder}`);
+
+      const upgradeLabel = upgradeOn ? 'Yes' : 'No';
+
+      const info = `${title} | £${selectedAmount} | ${ans.join(', ') || 'No Qs'} | Upgrade:${upgradeLabel}`;
+      const encodedInfo = encodeURIComponent(info);
+
+      const trackedLink = `${chosenLink}?client_reference_id=${encodedInfo}&prefilled_description=${encodedInfo}`;
+      checkoutBtn.href = trackedLink;
     }
 
     upgradeCb.addEventListener('change', () => {
@@ -516,6 +547,7 @@
       upgradeNote.classList.add('hidden');
       currentBaseLink = '#';
       currentUpgradeLink = null;
+      currentRec = null;
       checkoutBtn.href = '#';
       setStep(1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
