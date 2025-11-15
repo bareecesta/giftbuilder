@@ -33,7 +33,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* --- Crossfade gallery (uniform, slightly pulled back) --- */
+    /* --- Crossfade gallery (uniform for mobile + desktop) --- */
     .fade-host {
       position: relative;
       background: #fff;
@@ -48,8 +48,8 @@
       margin: auto;
       object-fit: contain;
       width: auto;
-      height: 80%;           /* uniform across desktop + mobile */
-      padding: 1.5rem;
+      height: 100%;         /* fill the image section, uniform across breakpoints */
+      padding: 1.25rem;
       opacity: 0;
       transition: opacity 1.2s ease;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
@@ -70,17 +70,16 @@
       display: none;                 /* toggled via .show */
       z-index: 60;
       backdrop-filter: blur(6px);
-      padding-bottom: calc(10px + env(safe-area-inset-bottom)); /* iOS safe area */
+      padding-bottom: calc(10px + env(safe-area-inset-bottom));
     }
     .floating-bar.show { display: block; }
 
-    /* Space at bottom when bar visible */
     body.has-floating {
       padding-bottom: calc(84px + env(safe-area-inset-bottom));
     }
 
     .floating-inner {
-      max-width: 64rem; /* ~4xl */
+      max-width: 64rem;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr auto;
@@ -184,10 +183,10 @@
         <p id="recBody" class="mt-2 text-neutral-800 text-sm">We’ll suggest a bundle based on your answers.</p>
         <div id="recBubbles" class="flex flex-wrap gap-2 mt-4"></div>
 
-        <!-- Gift message -->
+        <!-- Gift message (optional) -->
         <div class="mt-5">
           <label for="giftMessage" class="block text-xs sm:text-sm font-medium text-[#5a2b10]">
-            Add a short gift message (max 50 characters)
+            Add a short gift message (optional, max 50 characters)
           </label>
           <input
             id="giftMessage"
@@ -196,9 +195,6 @@
             class="mt-1 w-full rounded-full border border-[#5a2b10]/40 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#5a2b10]"
             placeholder="e.g. Merry Christmas! Enjoy the brews."
           />
-          <p id="giftMessageError" class="mt-1 text-xs text-red-600 hidden">
-            Please add a message (max 50 characters).
-          </p>
         </div>
       </div>
 
@@ -247,7 +243,7 @@
   <!-- Floating Checkout Bar (mobile + desktop) -->
   <div id="floatingBar" class="floating-bar">
     <div class="floating-inner">
-      <span id="floatingSummary" class="text-xs sm:text-sm text-[#5a2b10] line-clamp-1"></span>
+      <span id="floatingSummary" class="text-xs sm:text-sm text-[#5a2b10]"></span>
       <a id="checkoutFloating" href="#" class="rounded-full bg-[#5a2b10] text-white px-4 py-2 text-sm font-semibold hover:bg-[#4a1f0b] transition">
         Proceed to Checkout
       </a>
@@ -299,7 +295,6 @@
     const floatingSummary = document.getElementById('floatingSummary');
 
     const giftMessageInput = document.getElementById('giftMessage');
-    const giftMessageError = document.getElementById('giftMessageError');
 
     function setStep(n){
       const circles = document.querySelectorAll('#steps > div.w-8');
@@ -312,17 +307,6 @@
           c.classList.add('bg-[#e8dfcc]','text-[#5a2b10]');
         }
       });
-    }
-
-    function setCheckoutEnabled(enabled){
-      const cls = ['opacity-50','pointer-events-none','cursor-not-allowed'];
-      if(enabled){
-        checkoutBtn.classList.remove(...cls);
-        checkoutFloating.classList.remove(...cls);
-      } else {
-        checkoutBtn.classList.add(...cls);
-        checkoutFloating.classList.add(...cls);
-      }
     }
 
     // Toggle extra tiers
@@ -506,14 +490,13 @@
       buildBubbles(rec.bubbles || []);
       buildCrossfade(rec.images || []);
 
-      // reset upgrade & message
+      // reset upgrade & message (message remains optional)
       upgradeCb.checked = false;
       upgradeNote.classList.add('hidden');
       giftMessageInput.value = '';
       giftMessage = '';
-      giftMessageError.classList.add('hidden');
-      setCheckoutEnabled(false);
-      updateCheckoutHrefs(); // will set hrefs but buttons remain disabled until message entered
+
+      updateCheckoutHrefs();
 
       step2.classList.add('hidden');
       step3.classList.remove('hidden');
@@ -530,12 +513,9 @@
     document.getElementById('changeAmount').addEventListener('click', restart);
     document.getElementById('restartBuilder').addEventListener('click', restart);
 
-    // Gift message handling
+    // Gift message (optional, just updates tracking info)
     giftMessageInput.addEventListener('input', () => {
       giftMessage = giftMessageInput.value.trim();
-      giftMessageError.classList.add('hidden');
-      const hasMsg = giftMessage.length > 0;
-      setCheckoutEnabled(hasMsg && !!selectedAmount);
       if (selectedAmount) updateCheckoutHrefs();
     });
 
@@ -563,6 +543,7 @@
       if (!selectedAmount) {
         checkoutBtn.href = '#';
         checkoutFloating.href = '#';
+        floatingSummary.textContent = '';
         return;
       }
       const upgradeOn = upgradeCb.checked;
@@ -571,7 +552,9 @@
       checkoutFloating.href = link;
 
       const rec = currentRec || getRecommendation(answers, selectedAmount);
-      const msgSnippet = giftMessage ? ` • “${giftMessage.slice(0,30)}${giftMessage.length>30?'…':''}”` : '';
+      const msgSnippet = giftMessage
+        ? ` • “${giftMessage.slice(0,30)}${giftMessage.length>30?'…':''}”`
+        : '';
       floatingSummary.textContent = `${rec.title} • £${selectedAmount}${upgradeOn ? ' • Co Ferment +' : ''}${msgSnippet}`;
     }
 
@@ -597,10 +580,9 @@
       upgradeNote.classList.add('hidden');
       currentRec = null;
       checkoutBtn.href = '#';
+      checkoutFloating.href = '#';
       giftMessage = '';
       giftMessageInput.value = '';
-      giftMessageError.classList.add('hidden');
-      setCheckoutEnabled(false);
 
       // Hide floating bar and remove extra bottom space
       floatingBar.classList.remove('show');
@@ -764,4 +746,3 @@
   </script>
 </body>
 </html>
-
