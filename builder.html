@@ -33,7 +33,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* --- Crossfade gallery (pulled-back images) --- */
+    /* --- Crossfade gallery (uniform, slightly pulled back) --- */
     .fade-host {
       position: relative;
       background: #fff;
@@ -47,23 +47,14 @@
       inset: 0;
       margin: auto;
       object-fit: contain;
-      /* Pull back by limiting size rather than filling 100% */
       width: auto;
-      height: 80%;             /* desktop/tablet: less than full container */
-      padding: 1.25rem;
+      height: 80%;           /* uniform across desktop + mobile */
+      padding: 1.5rem;
       opacity: 0;
       transition: opacity 1.2s ease;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
     }
     .fade-host img.is-active { opacity: 1; }
-
-    /* Mobile: pull back even more so nothing feels cropped */
-    @media (max-width: 640px) {
-      .fade-host img {
-        height: 60%;           /* smaller than before to “zoom out” */
-        padding: 2rem;         /* extra breathing room */
-      }
-    }
 
     @media (prefers-reduced-motion: reduce) {
       .fade-host img { transition: none; }
@@ -79,17 +70,15 @@
       display: none;                 /* toggled via .show */
       z-index: 60;
       backdrop-filter: blur(6px);
-      /* iOS safe area */
-      padding-bottom: calc(10px + env(safe-area-inset-bottom));
+      padding-bottom: calc(10px + env(safe-area-inset-bottom)); /* iOS safe area */
     }
     .floating-bar.show { display: block; }
 
-    /* When bar is visible, make space at the bottom so no content is hidden */
+    /* Space at bottom when bar visible */
     body.has-floating {
       padding-bottom: calc(84px + env(safe-area-inset-bottom));
     }
 
-    /* Floating bar layout: full-width button on mobile, compact on desktop */
     .floating-inner {
       max-width: 64rem; /* ~4xl */
       margin: 0 auto;
@@ -98,11 +87,15 @@
       gap: .75rem;
       align-items: center;
     }
+
     @media (max-width: 640px) {
       .floating-inner {
-        grid-template-columns: 1fr;   /* summary above, button full width */
+        grid-template-columns: 1fr;
       }
-      #checkoutFloating { width: 100%; text-align: center; }
+      #checkoutFloating {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -190,6 +183,23 @@
         <h3 id="recTitle" class="mt-4 text-lg font-semibold text-[#5a2b10]">Loading…</h3>
         <p id="recBody" class="mt-2 text-neutral-800 text-sm">We’ll suggest a bundle based on your answers.</p>
         <div id="recBubbles" class="flex flex-wrap gap-2 mt-4"></div>
+
+        <!-- Gift message -->
+        <div class="mt-5">
+          <label for="giftMessage" class="block text-xs sm:text-sm font-medium text-[#5a2b10]">
+            Add a short gift message (max 50 characters)
+          </label>
+          <input
+            id="giftMessage"
+            type="text"
+            maxlength="50"
+            class="mt-1 w-full rounded-full border border-[#5a2b10]/40 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#5a2b10]"
+            placeholder="e.g. Merry Christmas! Enjoy the brews."
+          />
+          <p id="giftMessageError" class="mt-1 text-xs text-red-600 hidden">
+            Please add a message (max 50 characters).
+          </p>
+        </div>
       </div>
 
       <!-- Upgrade option -->
@@ -269,6 +279,7 @@
     const answers = { v60: null, espresso: null, grinder: null, kettle: null };
     let selectedAmount = null;
     let currentRec = null;
+    let giftMessage = '';
 
     // --- Elements ---
     const step1 = document.getElementById('step1');
@@ -287,6 +298,9 @@
     const checkoutFloating = document.getElementById('checkoutFloating');
     const floatingSummary = document.getElementById('floatingSummary');
 
+    const giftMessageInput = document.getElementById('giftMessage');
+    const giftMessageError = document.getElementById('giftMessageError');
+
     function setStep(n){
       const circles = document.querySelectorAll('#steps > div.w-8');
       circles.forEach((c,i)=>{
@@ -298,6 +312,17 @@
           c.classList.add('bg-[#e8dfcc]','text-[#5a2b10]');
         }
       });
+    }
+
+    function setCheckoutEnabled(enabled){
+      const cls = ['opacity-50','pointer-events-none','cursor-not-allowed'];
+      if(enabled){
+        checkoutBtn.classList.remove(...cls);
+        checkoutFloating.classList.remove(...cls);
+      } else {
+        checkoutBtn.classList.add(...cls);
+        checkoutFloating.classList.add(...cls);
+      }
     }
 
     // Toggle extra tiers
@@ -481,17 +506,20 @@
       buildBubbles(rec.bubbles || []);
       buildCrossfade(rec.images || []);
 
-      // reset upgrade toggle for new recommendation
+      // reset upgrade & message
       upgradeCb.checked = false;
       upgradeNote.classList.add('hidden');
-
-      updateCheckoutHrefs();
+      giftMessageInput.value = '';
+      giftMessage = '';
+      giftMessageError.classList.add('hidden');
+      setCheckoutEnabled(false);
+      updateCheckoutHrefs(); // will set hrefs but buttons remain disabled until message entered
 
       step2.classList.add('hidden');
       step3.classList.remove('hidden');
       setStep(3);
 
-      // Show floating bar on all viewports + add bottom space
+      // Show floating bar and add bottom padding
       floatingBar.classList.add('show');
       document.body.classList.add('has-floating');
 
@@ -501,6 +529,15 @@
     document.getElementById('showRecommendation').addEventListener('click', showRecommendation);
     document.getElementById('changeAmount').addEventListener('click', restart);
     document.getElementById('restartBuilder').addEventListener('click', restart);
+
+    // Gift message handling
+    giftMessageInput.addEventListener('input', () => {
+      giftMessage = giftMessageInput.value.trim();
+      giftMessageError.classList.add('hidden');
+      const hasMsg = giftMessage.length > 0;
+      setCheckoutEnabled(hasMsg && !!selectedAmount);
+      if (selectedAmount) updateCheckoutHrefs();
+    });
 
     function composeTrackingLink(amount, upgradeOn){
       const base = paymentLinks[amount] || '#';
@@ -515,7 +552,9 @@
       if (answers.kettle !== null) ans.push(`Kettle:${answers.kettle}`);
       if (answers.grinder !== null) ans.push(`Grinder:${answers.grinder}`);
 
-      const info = `${title} | £${amount} | ${ans.join(', ') || 'No Qs'} | Upgrade:${upgradeOn ? 'Yes' : 'No'}`;
+      const msg = giftMessage ? `Msg:${giftMessage}` : 'Msg:None';
+
+      const info = `${title} | £${amount} | ${ans.join(', ') || 'No Qs'} | Upgrade:${upgradeOn ? 'Yes' : 'No'} | ${msg}`;
       const encoded = encodeURIComponent(info);
       return `${upgraded}?client_reference_id=${encoded}&prefilled_description=${encoded}`;
     }
@@ -532,12 +571,13 @@
       checkoutFloating.href = link;
 
       const rec = currentRec || getRecommendation(answers, selectedAmount);
-      floatingSummary.textContent = `${rec.title} • £${selectedAmount}${upgradeOn ? ' • Co Ferment +' : ''}`;
+      const msgSnippet = giftMessage ? ` • “${giftMessage.slice(0,30)}${giftMessage.length>30?'…':''}”` : '';
+      floatingSummary.textContent = `${rec.title} • £${selectedAmount}${upgradeOn ? ' • Co Ferment +' : ''}${msgSnippet}`;
     }
 
     upgradeCb.addEventListener('change', () => {
       upgradeNote.classList.toggle('hidden', !upgradeCb.checked);
-      updateCheckoutHrefs();
+      if (selectedAmount) updateCheckoutHrefs();
     });
 
     function restart(){
@@ -557,6 +597,10 @@
       upgradeNote.classList.add('hidden');
       currentRec = null;
       checkoutBtn.href = '#';
+      giftMessage = '';
+      giftMessageInput.value = '';
+      giftMessageError.classList.add('hidden');
+      setCheckoutEnabled(false);
 
       // Hide floating bar and remove extra bottom space
       floatingBar.classList.remove('show');
@@ -675,18 +719,7 @@
       };
     }
 
-    function buildBubbles(items){
-      const wrap = document.getElementById('recBubbles');
-      wrap.innerHTML = '';
-      items.forEach(txt => {
-        const chip = document.createElement('span');
-        chip.className = 'inline-block rounded-full bg-white text-[#5a2b10] border border-[#5a2b10]/20 px-3 py-1 text-xs font-medium';
-        chip.textContent = txt;
-        wrap.appendChild(chip);
-      });
-    }
-
-    // Crossfade gallery (slow, zoomed-out)
+    // Crossfade gallery
     let fadeTimer = null;
     function buildCrossfade(files){
       const host = document.getElementById('recImages');
@@ -718,17 +751,15 @@
         showA = !showA;
       }
 
-      // prime first two frames
       setSrc(imgA, files[0]);
       imgA.classList.add('is-active');
       if(files.length > 1){ setSrc(imgB, files[1]); }
 
-      // gentle pace between images
       let idx = 1;
       fadeTimer = setInterval(()=>{
         i = (idx++) % files.length;
         swap();
-      }, 4000); // 4s per image
+      }, 4000);
     }
   </script>
 </body>
