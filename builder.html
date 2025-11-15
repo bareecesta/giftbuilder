@@ -48,7 +48,7 @@
       margin: auto;
       object-fit: contain;
       width: auto;
-      height: 100%;         /* fill the image section, uniform across breakpoints */
+      height: 100%;
       padding: 1.25rem;
       opacity: 0;
       transition: opacity 1.2s ease;
@@ -67,7 +67,7 @@
       background: rgba(232, 223, 204, .96);
       border-top: 1px solid rgba(90,43,16,.12);
       padding: 10px 14px;
-      display: none;                 /* toggled via .show */
+      display: none;
       z-index: 60;
       backdrop-filter: blur(6px);
       padding-bottom: calc(10px + env(safe-area-inset-bottom));
@@ -490,7 +490,7 @@
       buildBubbles(rec.bubbles || []);
       buildCrossfade(rec.images || []);
 
-      // reset upgrade & message (message remains optional)
+      // reset upgrade & message
       upgradeCb.checked = false;
       upgradeNote.classList.add('hidden');
       giftMessageInput.value = '';
@@ -513,7 +513,7 @@
     document.getElementById('changeAmount').addEventListener('click', restart);
     document.getElementById('restartBuilder').addEventListener('click', restart);
 
-    // Gift message (optional, just updates tracking info)
+    // Gift message (optional)
     giftMessageInput.addEventListener('input', () => {
       giftMessage = giftMessageInput.value.trim();
       if (selectedAmount) updateCheckoutHrefs();
@@ -584,7 +584,6 @@
       giftMessage = '';
       giftMessageInput.value = '';
 
-      // Hide floating bar and remove extra bottom space
       floatingBar.classList.remove('show');
       document.body.classList.remove('has-floating');
 
@@ -701,6 +700,19 @@
       };
     }
 
+    // Build bubbles under the description
+    function buildBubbles(items){
+      const container = document.getElementById('recBubbles');
+      container.innerHTML = '';
+      if(!items || !items.length) return;
+      items.forEach(text => {
+        const chip = document.createElement('span');
+        chip.className = 'inline-flex items-center rounded-full bg-white px-3 py-1 text-xs sm:text-sm text-[#5a2b10] border border-[#5a2b10]/20';
+        chip.textContent = text;
+        container.appendChild(chip);
+      });
+    }
+
     // Crossfade gallery
     let fadeTimer = null;
     function buildCrossfade(files){
@@ -746,4 +758,3 @@
   </script>
 </body>
 </html>
-
