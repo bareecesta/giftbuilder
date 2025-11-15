@@ -33,7 +33,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* --- Crossfade gallery (no zoom-in; gentle size and padding) --- */
+    /* --- Crossfade gallery (pulled-back images) --- */
     .fade-host {
       position: relative;
       background: #fff;
@@ -41,44 +41,69 @@
       overflow: hidden;
       border: 1px solid rgba(90,43,16,.1);
       aspect-ratio: 4 / 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .fade-host img {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      margin: auto;
       object-fit: contain;
-      padding: 1.5rem;           /* gives breathing room (less “zoomed in”) */
+      /* Pull back by limiting size rather than filling 100% */
+      width: auto;
+      height: 80%;             /* desktop/tablet: less than full container */
+      padding: 1.25rem;
       opacity: 0;
       transition: opacity 1.2s ease;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
     }
     .fade-host img.is-active { opacity: 1; }
 
-    /* On small screens, zoom out a touch more */
+    /* Mobile: pull back even more so nothing feels cropped */
     @media (max-width: 640px) {
-      .fade-host img { padding: 2rem; }
+      .fade-host img {
+        height: 60%;           /* smaller than before to “zoom out” */
+        padding: 2rem;         /* extra breathing room */
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .fade-host img { transition: none; }
     }
 
-    /* Floating checkout bar */
+    /* Floating checkout bar (mobile + desktop) */
     .floating-bar {
       position: fixed;
       left: 0; right: 0; bottom: 0;
       background: rgba(232, 223, 204, .96);
       border-top: 1px solid rgba(90,43,16,.12);
-      padding: 12px 16px;
-      display: none;             /* toggled on Step 3 */
+      padding: 10px 14px;
+      display: none;                 /* toggled via .show */
       z-index: 60;
       backdrop-filter: blur(6px);
+      /* iOS safe area */
+      padding-bottom: calc(10px + env(safe-area-inset-bottom));
     }
     .floating-bar.show { display: block; }
+
+    /* When bar is visible, make space at the bottom so no content is hidden */
+    body.has-floating {
+      padding-bottom: calc(84px + env(safe-area-inset-bottom));
+    }
+
+    /* Floating bar layout: full-width button on mobile, compact on desktop */
+    .floating-inner {
+      max-width: 64rem; /* ~4xl */
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: .75rem;
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .floating-inner {
+        grid-template-columns: 1fr;   /* summary above, button full width */
+      }
+      #checkoutFloating { width: 100%; text-align: center; }
+    }
   </style>
 </head>
 
@@ -113,7 +138,7 @@
     <!-- Step 1 -->
     <section id="step1" class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8">
       <p class="text-center mb-6 text-neutral-700 font-medium">Pick your budget</p>
-      <!-- Primary: now £15, £25, £100 -->
+      <!-- Primary: £15, £25, £100 -->
       <div class="grid grid-cols-3 gap-3 sm:gap-4">
         <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="15">£15</button>
         <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="25">£25</button>
@@ -132,7 +157,7 @@
         <button type="button" id="toggleMore" class="text-sm font-semibold text-[#5a2b10] underline underline-offset-4">See more options</button>
       </div>
 
-      <!-- Secondary tiers moved here -->
+      <!-- Secondary tiers -->
       <div id="moreTiers" class="mt-4 hidden">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="50">£50</button>
@@ -185,7 +210,7 @@
       </p>
 
       <!-- Actions: Back / Email / Checkout -->
-      <div class="mt-6 pb-20 sm:pb-0 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3">
+      <div class="mt-6 pb-24 sm:pb-0 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3">
         <button id="restartBuilder"
                 class="rounded-full bg-white text-[#5a2b10] border border-[#5a2b10] px-6 py-3 font-semibold hover:bg-[#5a2b10] hover:text-white transition">
           Back to Start
@@ -209,9 +234,9 @@
     </section>
   </main>
 
-  <!-- Floating Checkout Bar -->
+  <!-- Floating Checkout Bar (mobile + desktop) -->
   <div id="floatingBar" class="floating-bar">
-    <div class="max-w-4xl mx-auto flex items-center justify-between gap-3">
+    <div class="floating-inner">
       <span id="floatingSummary" class="text-xs sm:text-sm text-[#5a2b10] line-clamp-1"></span>
       <a id="checkoutFloating" href="#" class="rounded-full bg-[#5a2b10] text-white px-4 py-2 text-sm font-semibold hover:bg-[#4a1f0b] transition">
         Proceed to Checkout
@@ -466,8 +491,10 @@
       step3.classList.remove('hidden');
       setStep(3);
 
-      // show floating bar and add bottom padding to main so content isn't obscured
+      // Show floating bar on all viewports + add bottom space
       floatingBar.classList.add('show');
+      document.body.classList.add('has-floating');
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -504,7 +531,6 @@
       checkoutBtn.href = link;
       checkoutFloating.href = link;
 
-      // update floating summary text
       const rec = currentRec || getRecommendation(answers, selectedAmount);
       floatingSummary.textContent = `${rec.title} • £${selectedAmount}${upgradeOn ? ' • Co Ferment +' : ''}`;
     }
@@ -531,7 +557,11 @@
       upgradeNote.classList.add('hidden');
       currentRec = null;
       checkoutBtn.href = '#';
+
+      // Hide floating bar and remove extra bottom space
       floatingBar.classList.remove('show');
+      document.body.classList.remove('has-floating');
+
       setStep(1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -656,7 +686,7 @@
       });
     }
 
-    // Crossfade gallery (slow, not zoomed-in)
+    // Crossfade gallery (slow, zoomed-out)
     let fadeTimer = null;
     function buildCrossfade(files){
       const host = document.getElementById('recImages');
@@ -693,13 +723,14 @@
       imgA.classList.add('is-active');
       if(files.length > 1){ setSrc(imgB, files[1]); }
 
-      // advance slowly between images
+      // gentle pace between images
       let idx = 1;
       fadeTimer = setInterval(()=>{
         i = (idx++) % files.length;
         swap();
-      }, 3500); // 3.5s per image for a gentle pace
+      }, 4000); // 4s per image
     }
   </script>
 </body>
 </html>
+
