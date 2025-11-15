@@ -33,8 +33,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* ---- Continuous glide carousel ---- */
-    .glide-host {
+    /* --- Crossfade gallery (no zoom-in; gentle size and padding) --- */
+    .fade-host {
       position: relative;
       background: #fff;
       border-radius: 1rem;
@@ -45,72 +45,40 @@
       align-items: center;
       justify-content: center;
     }
-
-    .glide-track {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 2rem;
-      animation: glide 20s linear infinite;
-      will-change: transform;
-    }
-
-    .glide-host:hover .glide-track {
-      animation-play-state: paused;
-    }
-
-    .glide-item {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* --- Image styles --- */
-    .glide-item img {
-      height: 75%;
-      width: auto;
+    .fade-host img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
+      padding: 1.5rem;           /* gives breathing room (less “zoomed in”) */
+      opacity: 0;
+      transition: opacity 1.2s ease;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,.06));
-      transition: transform 1.2s ease, opacity 1.2s ease;
-      animation: slowZoom 14s ease-in-out infinite;
-      opacity: 0.96;
     }
+    .fade-host img.is-active { opacity: 1; }
 
-    .glide-host:hover .glide-item img {
-      transform: scale(1.05);
-      animation-play-state: paused;
-    }
-
-    /* --- Smooth horizontal glide --- */
-    @keyframes glide {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* --- Gentle breathing / zoom animation --- */
-    @keyframes slowZoom {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.04); }
-    }
-
-    /* --- Mobile adjustments --- */
+    /* On small screens, zoom out a touch more */
     @media (max-width: 640px) {
-      .glide-item img {
-        height: 65%;
-        animation: slowZoomMobile 16s ease-in-out infinite;
-      }
-    }
-
-    @keyframes slowZoomMobile {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
+      .fade-host img { padding: 2rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .glide-track { animation: none; }
-      .glide-item img { animation: none; transition: none; }
+      .fade-host img { transition: none; }
     }
+
+    /* Floating checkout bar */
+    .floating-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: rgba(232, 223, 204, .96);
+      border-top: 1px solid rgba(90,43,16,.12);
+      padding: 12px 16px;
+      display: none;             /* toggled on Step 3 */
+      z-index: 60;
+      backdrop-filter: blur(6px);
+    }
+    .floating-bar.show { display: block; }
   </style>
 </head>
 
@@ -120,7 +88,7 @@
     🎄 Free collection starts Monday 15 December. UK delivery available (£5) that same week — we’ll contact you to arrange a time.
   </div>
 
-  <main class="max-w-4xl mx-auto px-6 py-12 sm:py-16">
+  <main class="max-w-4xl mx-auto px-6 py-12 sm:py-16" id="pageMain">
     <h1 class="text-3xl sm:text-4xl font-bold text-center text-[#5a2b10] mb-8">Christmas Coffee Gift Set Builder</h1>
 
     <section class="text-center mb-8">
@@ -145,9 +113,10 @@
     <!-- Step 1 -->
     <section id="step1" class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8">
       <p class="text-center mb-6 text-neutral-700 font-medium">Pick your budget</p>
+      <!-- Primary: now £15, £25, £100 -->
       <div class="grid grid-cols-3 gap-3 sm:gap-4">
+        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="15">£15</button>
         <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="25">£25</button>
-        <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="50">£50</button>
         <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-4 text-lg font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="100">£100</button>
       </div>
 
@@ -163,9 +132,10 @@
         <button type="button" id="toggleMore" class="text-sm font-semibold text-[#5a2b10] underline underline-offset-4">See more options</button>
       </div>
 
+      <!-- Secondary tiers moved here -->
       <div id="moreTiers" class="mt-4 hidden">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="15">£15</button>
+          <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="50">£50</button>
           <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="75">£75</button>
           <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="250">£250</button>
           <button type="button" class="amount-btn rounded-2xl border border-neutral-200 px-4 py-3 font-semibold text-[#5a2b10] hover:shadow cursor-pointer" data-amount="500">£500</button>
@@ -191,7 +161,7 @@
     <section id="step3" class="hidden rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm md:p-8 mt-8">
       <h2 class="text-xl font-semibold text-[#5a2b10] text-center mb-4">Recommended Bundle</h2>
       <div id="recCard" class="rounded-2xl bg-[#e8dfcc]/50 p-6 mb-4">
-        <div id="recImages" class="glide-host"></div>
+        <div id="recImages" class="fade-host"></div>
         <h3 id="recTitle" class="mt-4 text-lg font-semibold text-[#5a2b10]">Loading…</h3>
         <p id="recBody" class="mt-2 text-neutral-800 text-sm">We’ll suggest a bundle based on your answers.</p>
         <div id="recBubbles" class="flex flex-wrap gap-2 mt-4"></div>
@@ -215,7 +185,7 @@
       </p>
 
       <!-- Actions: Back / Email / Checkout -->
-      <div class="mt-6 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3">
+      <div class="mt-6 pb-20 sm:pb-0 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3">
         <button id="restartBuilder"
                 class="rounded-full bg-white text-[#5a2b10] border border-[#5a2b10] px-6 py-3 font-semibold hover:bg-[#5a2b10] hover:text-white transition">
           Back to Start
@@ -238,6 +208,16 @@
       </div>
     </section>
   </main>
+
+  <!-- Floating Checkout Bar -->
+  <div id="floatingBar" class="floating-bar">
+    <div class="max-w-4xl mx-auto flex items-center justify-between gap-3">
+      <span id="floatingSummary" class="text-xs sm:text-sm text-[#5a2b10] line-clamp-1"></span>
+      <a id="checkoutFloating" href="#" class="rounded-full bg-[#5a2b10] text-white px-4 py-2 text-sm font-semibold hover:bg-[#4a1f0b] transition">
+        Proceed to Checkout
+      </a>
+    </div>
+  </div>
 
   <script>
     // --- Data ---
@@ -263,8 +243,6 @@
 
     const answers = { v60: null, espresso: null, grinder: null, kettle: null };
     let selectedAmount = null;
-    let currentBaseLink = '#';
-    let currentUpgradeLink = null;
     let currentRec = null;
 
     // --- Elements ---
@@ -279,6 +257,10 @@
     const upgradeCb = document.getElementById('upgradeBeans');
     const upgradeNote = document.getElementById('upgradeNote');
     const checkoutBtn = document.getElementById('checkout');
+
+    const floatingBar = document.getElementById('floatingBar');
+    const checkoutFloating = document.getElementById('checkoutFloating');
+    const floatingSummary = document.getElementById('floatingSummary');
 
     function setStep(n){
       const circles = document.querySelectorAll('#steps > div.w-8');
@@ -472,20 +454,20 @@
       document.getElementById('recTitle').textContent = rec.title;
       document.getElementById('recBody').textContent = rec.body;
       buildBubbles(rec.bubbles || []);
-      buildGlideCarousel(rec.images || []);
+      buildCrossfade(rec.images || []);
 
       // reset upgrade toggle for new recommendation
       upgradeCb.checked = false;
       upgradeNote.classList.add('hidden');
 
-      currentBaseLink = paymentLinks[selectedAmount] || '#';
-      currentUpgradeLink = upgradePaymentLinks[selectedAmount] || null;
-
-      updateCheckoutHref();
+      updateCheckoutHrefs();
 
       step2.classList.add('hidden');
       step3.classList.remove('hidden');
       setStep(3);
+
+      // show floating bar and add bottom padding to main so content isn't obscured
+      floatingBar.classList.add('show');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -493,21 +475,11 @@
     document.getElementById('changeAmount').addEventListener('click', restart);
     document.getElementById('restartBuilder').addEventListener('click', restart);
 
-    function updateCheckoutHref(){
-      if (!selectedAmount) {
-        checkoutBtn.href = '#';
-        return;
-      }
+    function composeTrackingLink(amount, upgradeOn){
+      const base = paymentLinks[amount] || '#';
+      const upgraded = upgradeOn && upgradePaymentLinks[amount] ? upgradePaymentLinks[amount] : base;
 
-      const baseLink = paymentLinks[selectedAmount] || '#';
-      const hasUpgradeLink = !!upgradePaymentLinks[selectedAmount];
-      const upgradeOn = upgradeCb.checked && hasUpgradeLink;
-
-      const chosenLink = upgradeOn
-        ? (upgradePaymentLinks[selectedAmount] || baseLink)
-        : baseLink;
-
-      const rec = currentRec || getRecommendation(answers, selectedAmount);
+      const rec = currentRec || getRecommendation(answers, amount);
       const title = rec.title || 'Unknown bundle';
 
       const ans = [];
@@ -516,18 +488,30 @@
       if (answers.kettle !== null) ans.push(`Kettle:${answers.kettle}`);
       if (answers.grinder !== null) ans.push(`Grinder:${answers.grinder}`);
 
-      const upgradeLabel = upgradeOn ? 'Yes' : 'No';
+      const info = `${title} | £${amount} | ${ans.join(', ') || 'No Qs'} | Upgrade:${upgradeOn ? 'Yes' : 'No'}`;
+      const encoded = encodeURIComponent(info);
+      return `${upgraded}?client_reference_id=${encoded}&prefilled_description=${encoded}`;
+    }
 
-      const info = `${title} | £${selectedAmount} | ${ans.join(', ') || 'No Qs'} | Upgrade:${upgradeLabel}`;
-      const encodedInfo = encodeURIComponent(info);
+    function updateCheckoutHrefs(){
+      if (!selectedAmount) {
+        checkoutBtn.href = '#';
+        checkoutFloating.href = '#';
+        return;
+      }
+      const upgradeOn = upgradeCb.checked;
+      const link = composeTrackingLink(selectedAmount, upgradeOn);
+      checkoutBtn.href = link;
+      checkoutFloating.href = link;
 
-      const trackedLink = `${chosenLink}?client_reference_id=${encodedInfo}&prefilled_description=${encodedInfo}`;
-      checkoutBtn.href = trackedLink;
+      // update floating summary text
+      const rec = currentRec || getRecommendation(answers, selectedAmount);
+      floatingSummary.textContent = `${rec.title} • £${selectedAmount}${upgradeOn ? ' • Co Ferment +' : ''}`;
     }
 
     upgradeCb.addEventListener('change', () => {
       upgradeNote.classList.toggle('hidden', !upgradeCb.checked);
-      updateCheckoutHref();
+      updateCheckoutHrefs();
     });
 
     function restart(){
@@ -545,10 +529,9 @@
       }
       upgradeCb.checked = false;
       upgradeNote.classList.add('hidden');
-      currentBaseLink = '#';
-      currentUpgradeLink = null;
       currentRec = null;
       checkoutBtn.href = '#';
+      floatingBar.classList.remove('show');
       setStep(1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -673,29 +656,49 @@
       });
     }
 
-    // Continuous glide carousel
-    function buildGlideCarousel(files){
+    // Crossfade gallery (slow, not zoomed-in)
+    let fadeTimer = null;
+    function buildCrossfade(files){
       const host = document.getElementById('recImages');
       host.innerHTML = '';
+      if(fadeTimer){ clearInterval(fadeTimer); fadeTimer = null; }
       if(!files || !files.length) return;
 
-      host.className = 'glide-host';
-      const track = document.createElement('div');
-      track.className = 'glide-track';
-      host.appendChild(track);
+      host.className = 'fade-host';
+      const imgA = document.createElement('img');
+      const imgB = document.createElement('img');
+      host.appendChild(imgA);
+      host.appendChild(imgB);
 
-      const doubled = [...files, ...files];
-      doubled.forEach(src => {
-        const item = document.createElement('div');
-        item.className = 'glide-item';
-        const img = document.createElement('img');
-        img.alt = 'Bundle image';
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        img.src = src;
-        item.appendChild(img);
-        track.appendChild(item);
-      });
+      let i = 0;
+      let showA = true;
+
+      function setSrc(el, src){ el.src = src; }
+      function swap(){
+        const file = files[i];
+        if(showA){
+          setSrc(imgA, file);
+          imgA.classList.add('is-active');
+          imgB.classList.remove('is-active');
+        } else {
+          setSrc(imgB, file);
+          imgB.classList.add('is-active');
+          imgA.classList.remove('is-active');
+        }
+        showA = !showA;
+      }
+
+      // prime first two frames
+      setSrc(imgA, files[0]);
+      imgA.classList.add('is-active');
+      if(files.length > 1){ setSrc(imgB, files[1]); }
+
+      // advance slowly between images
+      let idx = 1;
+      fadeTimer = setInterval(()=>{
+        i = (idx++) % files.length;
+        swap();
+      }, 3500); // 3.5s per image for a gentle pace
     }
   </script>
 </body>
