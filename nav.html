@@ -1,0 +1,46 @@
+<!-- NAVBAR FILE: nav.html -->
+<nav class="w-full bg-white/90 backdrop-blur-md border-b border-neutral-200 fixed top-0 left-0 z-50">
+  <style>
+    /* ===== COCO GOTHIC LOGO FONT ===== */
+    @font-face {
+      font-family: 'CocoGothic';
+      src: url('/assets/fonts/CocoGothic-Regular.woff2') format('woff2'),
+           url('/assets/fonts/CocoGothic-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .nav-logo {
+      font-family: 'CocoGothic', sans-serif;
+      font-weight: 600;
+      font-size: 1.75rem;
+      letter-spacing: -0.035em; /* tighter spacing */
+      text-align: center;
+      color: #5a2b10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+  </style>
+
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+
+    <!-- LOGO -->
+    <a href="/" class="nav-logo">
+      bareecesta
+    </a>
+
+    <!-- DESKTOP LINKS -->
+    <div class="hidden sm:flex items-center gap-6">
+      <a href="https://tassecoffeeco.com"
+         target="_blank"
+         class="text-[#5a2b10] font-medium hover:opacity-70 transition">
+        Tasse Coffee
+      </a>
+
+      <a href="https://groundwork.coffee"
+         target="_blank"
+         class="text-[#5a2b10] font-medium hover:opacity-70 transition">
+        Groundwork
+      </a>
