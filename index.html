@@ -47,12 +47,14 @@
         <span class="text-brand font-semibold tracking-tight text-lg">bareecesta</span>
       </a>
 
-      <nav class="hidden sm:flex items-center gap-6 text-sm text-neutral-700">
-        <a href="#about" class="hover:text-brand">About</a>
-        <a href="#tasse" class="hover:text-brand">Tasse</a>
-        <a href="#groundwork" class="hover:text-brand">Groundwork</a>
-        <a href="#faq" class="hover:text-brand">FAQ</a>
-      </nav>
+    <div id="nav-container"></div>
+<script>
+fetch('/nav.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('nav-container').innerHTML = html;
+  });
+</script>
 
       <!-- Gift Builder button (header ONLY) -->
       <a href="/builder.html"
