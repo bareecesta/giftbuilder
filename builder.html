@@ -104,7 +104,14 @@
   <div class="bg-[#5a2b10] text-white text-center py-2 text-sm font-medium sticky top-0 z-50">
     🎄 Free collection starts Monday 15 December. UK delivery available (£5) that same week — we’ll contact you to arrange a time.
   </div>
-
+<div id="nav-container"></div>
+<script>
+fetch('/nav.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('nav-container').innerHTML = html;
+  });
+</script>
   <main class="max-w-4xl mx-auto px-6 py-12 sm:py-16" id="pageMain">
     <h1 class="text-3xl sm:text-4xl font-bold text-center text-[#5a2b10] mb-8">Christmas Coffee Gift Set Builder</h1>
 
